@@ -7,6 +7,13 @@
 |
 */
 
+const UsuariosController = () => import('#controllers/usuarios_controller')
 import router from '@adonisjs/core/services/router'
 
-router.on('/').render('pages/home')
+router
+  .group(() => {
+    router.post('/criar', [UsuariosController, 'store'])
+    router.patch('/atualizar', [UsuariosController, 'update'])
+    router.get('/perfil', [UsuariosController, 'show'])
+  })
+  .prefix('usuario')
