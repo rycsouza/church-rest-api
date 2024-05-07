@@ -16,6 +16,14 @@ export default async (usuarioPayload: UsuarioPayload) => {
   const avatar = usuarioPayload.avatar ?? undefined
 
   try {
+    const usuarioExistente = await Usuario.query()
+      .where('cpf', usuarioPayload.cpf)
+      .orWhere('email', usuarioPayload.email)
+      .orWhere('telefone', usuarioPayload.telefone)
+      .first()
+
+    if (usuarioExistente) return { usuario: usuarioExistente }
+
     const usuario = await Usuario.create({
       nome: usuarioPayload.nome,
       cpf: usuarioPayload.cpf,
@@ -29,7 +37,7 @@ export default async (usuarioPayload: UsuarioPayload) => {
     })
 
     return {
-      usuario: { id: usuario.id, nome: usuario.nome, data_nascimento: usuario.data_nascimento },
+      usuario: usuario,
     }
   } catch (error) {
     throw error
