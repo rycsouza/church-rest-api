@@ -1,5 +1,4 @@
 import Usuario from '#models/usuario'
-import { DateTime } from 'luxon'
 
 interface UsuarioPayload {
   nome: string
@@ -30,9 +29,7 @@ export default async (usuarioPayload: UsuarioPayload) => {
       email: usuarioPayload.email,
       senha: senha,
       telefone: usuarioPayload.telefone,
-      data_nascimento: DateTime.fromFormat(usuarioPayload.data_nascimento, 'dd/MM/yyyy').toFormat(
-        'yyyy-MM-dd HH:mm:ss'
-      ),
+      data_nascimento: new Date(usuarioPayload.data_nascimento),
       avatar: avatar,
     })
 

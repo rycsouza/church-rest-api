@@ -31,10 +31,13 @@ export default class Usuario extends compose(BaseModel, AuthFinder) {
   declare telefone: string
 
   @column()
-  declare data_nascimento: string
+  declare data_nascimento: Date
 
   @column()
   declare avatar: string
+
+  @column()
+  declare church_id: number
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   declare data_cadastro: DateTime

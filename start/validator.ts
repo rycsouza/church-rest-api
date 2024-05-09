@@ -7,4 +7,6 @@ vine.messagesProvider = new SimpleMessagesProvider({
   minLength: '{{ field }} deve ser maior!',
   maxLength: '{{ field }} deve ser menor!',
   regex: '{{ field }} não atende o formato padrão!',
+  unique: '{{ field }} já existente!',
+  positive: '{{ field }} deve ser positivo!',
 })

@@ -10,10 +10,12 @@ interface UsuarioPayload {
   avatar: string | undefined
 }
 
-export default async (usuario: Usuario, data: UsuarioPayload) => {
+export default async (usuario: Usuario, UsuarioPayload: UsuarioPayload) => {
   try {
-    await usuario?.merge(data)
-    await usuario?.save()
+    if (!usuario) throw new Error('Usuário não encontrado!')
+
+    await usuario.merge(UsuarioPayload)
+    await usuario.save()
 
     return { usuario }
   } catch (error) {

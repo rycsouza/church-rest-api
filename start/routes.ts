@@ -8,6 +8,7 @@
 */
 
 const UsuariosController = () => import('#controllers/usuarios_controller')
+const EventosController = () => import('#controllers/eventos_controller')
 import router from '@adonisjs/core/services/router'
 
 router
@@ -17,3 +18,14 @@ router
     router.get('/perfil', [UsuariosController, 'show'])
   })
   .prefix('usuario')
+
+router
+  .group(() => {
+    router.post('/criar', [EventosController, 'store'])
+    router.get('/', [EventosController, 'index'])
+    router.get('/:id', [EventosController, 'show'])
+    router.get('/forms/:id', [EventosController, 'showForms'])
+    router.patch('/atualizar/:id', [EventosController, 'update'])
+    router.delete('/deletar/:id', [EventosController, 'delete'])
+  })
+  .prefix('evento')
