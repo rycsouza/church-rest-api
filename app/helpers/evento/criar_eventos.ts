@@ -24,7 +24,7 @@ export default async (eventoPayLoad: EventoPayLoad) => {
 
     const evento = await Evento.create(eventoPayLoad)
 
-    return { evento }
+    return { evento, messagem: 'Evento criado com sucesso!' }
   } catch (error) {
     throw error
   }

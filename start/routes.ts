@@ -9,6 +9,7 @@
 
 const UsuariosController = () => import('#controllers/usuarios_controller')
 const EventosController = () => import('#controllers/eventos_controller')
+const ChurchesController = () => import('#controllers/churches_controller')
 import router from '@adonisjs/core/services/router'
 
 router
@@ -29,3 +30,13 @@ router
     router.delete('/deletar/:id', [EventosController, 'delete'])
   })
   .prefix('evento')
+
+router
+  .group(() => {
+    router.post('/criar', [ChurchesController, 'store'])
+    router.patch('/atualizar', [ChurchesController, 'update'])
+    router.get('/', [ChurchesController, 'index'])
+    router.get('/:id', [ChurchesController, 'show'])
+    router.delete('/deletar', [ChurchesController, 'delete'])
+  })
+  .prefix('igreja')
