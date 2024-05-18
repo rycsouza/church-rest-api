@@ -8,6 +8,7 @@ interface UsuarioPayload {
   telefone: string
   data_nascimento: string
   avatar: string | undefined
+  church_id: number
 }
 
 export default async (usuarioPayload: UsuarioPayload) => {
@@ -29,8 +30,9 @@ export default async (usuarioPayload: UsuarioPayload) => {
       email: usuarioPayload.email,
       senha: senha,
       telefone: usuarioPayload.telefone,
-      data_nascimento: new Date(usuarioPayload.data_nascimento),
+      data_nascimento: Usuario.setDataNascimento(usuarioPayload.data_nascimento),
       avatar: avatar,
+      church_id: usuarioPayload.church_id,
     })
 
     return {

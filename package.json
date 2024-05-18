@@ -62,6 +62,7 @@
     "bcrypt": "^5.1.1",
     "edge.js": "^6.0.2",
     "luxon": "^3.4.4",
+    "mercadopago": "^2.0.9",
     "mysql2": "^3.9.7",
     "reflect-metadata": "^0.2.2"
   },

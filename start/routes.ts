@@ -10,6 +10,8 @@
 const UsuariosController = () => import('#controllers/usuarios_controller')
 const EventosController = () => import('#controllers/eventos_controller')
 const ChurchesController = () => import('#controllers/churches_controller')
+const InscricaosController = () => import('#controllers/inscricaos_controller')
+const PaymentsController = () => import('#controllers/payments_controller')
 import router from '@adonisjs/core/services/router'
 
 router
@@ -40,3 +42,20 @@ router
     router.delete('/deletar', [ChurchesController, 'delete'])
   })
   .prefix('igreja')
+
+router
+  .group(() => {
+    router.post('/criar', [InscricaosController, 'store'])
+    // router.patch('/atualizar', [InscricaosController, 'update'])
+    // router.get('/', [InscricaosController, 'index'])
+    // router.get('/:id', [InscricaosController, 'show'])
+    // router.delete('/deletar', [InscricaosController, 'delete'])
+  })
+  .prefix('inscricao')
+
+router
+  .group(() => {
+    router.post('/verify', [PaymentsController, 'handle'])
+    router.post('/criar', [PaymentsController, 'store'])
+  })
+  .prefix('payment')
