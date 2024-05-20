@@ -12,9 +12,9 @@ interface PayementRequest {
 
 export default async ({ inscricaoId, eventoId, formaPagamento, cartao }: PayementRequest) => {
   try {
-    const inscricao = await BuscarInscricaoPorIdHelper(inscricaoId)
+    const { inscricao } = await BuscarInscricaoPorIdHelper(inscricaoId)
     const { evento } = await BuscarEventoIdHelper(eventoId)
-    const usuario = await BuscarUsuarioIdHelper(inscricao!.responsavel_id)
+    const { usuario } = await BuscarUsuarioIdHelper(inscricao!.responsavel_id)
 
     const payment = await Constants.FormaPagamento[formaPagamento]({ evento, usuario, cartao })
 
