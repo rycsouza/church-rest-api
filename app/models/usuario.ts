@@ -25,16 +25,16 @@ export default class Usuario extends compose(BaseModel, AuthFinder) {
   declare email: string
 
   @column({ serializeAs: null })
-  declare senha: string
+  declare senha: string | null
 
   @column()
   declare telefone: string
 
   @column()
-  declare data_nascimento: Date
+  declare data_nascimento: string | Date
 
   @column()
-  declare avatar: string
+  declare avatar: string | null
 
   @column()
   declare church_id: number
@@ -44,4 +44,10 @@ export default class Usuario extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   declare data_atualizacao: DateTime
+
+  static setDataNascimento(dataNascimento: any) {
+    if (!dataNascimento) return
+    const [day, month, year] = dataNascimento.split('/')
+    return new Date(year, month - 1, day).toISOString().split('T')[0]
+  }
 }
