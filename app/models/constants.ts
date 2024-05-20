@@ -12,7 +12,7 @@ const Constants = {
     },
 
     cartao: async ({ evento, usuario, cartao }: any) => {
-      return { evento, usuario, cartao }
+      return await MercadoPagoService.gerarPagamentoCard({ evento, usuario, cartao })
     },
   },
 }
