@@ -11,6 +11,7 @@ export const createUsuarioValidator = vine.compile(
     telefone: vine.string().trim().minLength(13).maxLength(13),
     data_nascimento: vine.string().trim().regex(dataRegex),
     avatar: vine.string().optional(),
+    church_id: vine.number().positive(),
   })
 )
 
