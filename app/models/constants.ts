@@ -7,12 +7,8 @@ const Constants = {
     Cancelado: -1,
   },
   FormaPagamento: {
-    pix: async ({ evento, usuario }: any) => {
-      return await MercadoPagoService.gerarPagamentoPix({ evento, usuario })
-    },
-
-    cartao: async ({ evento, usuario, cartao }: any) => {
-      return await MercadoPagoService.gerarPagamentoCard({ evento, usuario, cartao })
+    checkout: async ({ evento, usuario }: any) => {
+      return await MercadoPagoService.checkout({ evento, usuario })
     },
   },
 }

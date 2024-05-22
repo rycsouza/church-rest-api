@@ -1,24 +1,23 @@
-import Constants from '#models/constants'
 import { BuscarEventoIdHelper } from '../evento/index.js'
 import { BuscarInscricaoPorIdHelper } from '../inscricao/index.js'
 import { BuscarUsuarioIdHelper } from '../usuario/index.js'
+import Constants from '#models/constants'
 
 interface PayementRequest {
   eventoId: number
   inscricaoId: number
-  formaPagamento: 'pix' | 'cartao'
-  cartao: string | null
+  formaPagamento: 'checkout'
 }
 
-export default async ({ inscricaoId, eventoId, formaPagamento, cartao }: PayementRequest) => {
+export default async ({ inscricaoId, eventoId, formaPagamento }: PayementRequest) => {
   try {
     const { inscricao } = await BuscarInscricaoPorIdHelper(inscricaoId)
     const { evento } = await BuscarEventoIdHelper(eventoId)
     const { usuario } = await BuscarUsuarioIdHelper(inscricao!.responsavel_id)
 
-    const payment = await Constants.FormaPagamento[formaPagamento]({ evento, usuario, cartao })
+    const payment = await Constants.FormaPagamento[formaPagamento]({ evento, usuario })
 
-    return payment
+    return { payment }
   } catch (error) {
     throw error
   }
