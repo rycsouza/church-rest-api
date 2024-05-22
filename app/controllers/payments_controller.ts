@@ -12,15 +12,14 @@ export default class PaymentsController {
   }
 
   async store({ request }: HttpContext) {
-    const { eventoId, inscricaoId, formaPagamento, cartao }: any = request.only([
+    const { eventoId, inscricaoId, formaPagamento }: any = request.only([
       'eventoId',
       'inscricaoId',
       'formaPagamento',
-      'cartao',
     ])
 
     try {
-      return await CriarPagamento({ eventoId, inscricaoId, formaPagamento, cartao })
+      return await CriarPagamento({ eventoId, inscricaoId, formaPagamento })
     } catch (error) {
       throw error
     }
