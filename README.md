@@ -11,23 +11,6 @@ Este repositório contém a implementação do backend de um sistema dinâmico d
 - **AdminJS**: Um painel administrativo para gerenciar o backend.
 - **MySQL**: Um sistema de gerenciamento de banco de dados relacional.
 
-## Estrutura do Projeto
-
-```
-/controllers
-  - usuarios_controller.ts
-  - eventos_controller.ts
-  - churches_controller.ts
-  - inscricoes_controller.ts
-  - payments_controller.ts
-/routes
-  - usuario.ts
-  - evento.ts
-  - igreja.ts
-  - inscricao.ts
-  - payment.ts
-```
-
 ## Rotas e Endpoints
 
 ### Rotas de Usuário
@@ -98,10 +81,6 @@ Este repositório contém a implementação do backend de um sistema dinâmico d
    npm run dev
    ```
 
-## Contribuição
-
-Contribuições são bem-vindas! Por favor, faça um fork do repositório e crie um pull request com suas alterações.
-
 ## Planos Futuros
 
 - Expansão das funcionalidades do sistema.
@@ -114,10 +93,6 @@ Contribuições são bem-vindas! Por favor, faça um fork do repositório e crie
   - Cadastro de membro (Disponível para nível de admin: >= Obreiro)
   - Inscrições de Acampamentos/Eventos
   - Sistema de Oferta/Dízimo, direto no APP
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## Contato
 
