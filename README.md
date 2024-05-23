@@ -112,7 +112,7 @@ Contribuições são bem-vindas! Por favor, faça um fork do repositório e crie
   - Assistir a Live pelo APP
   - Dashboard de atualizações/eventos da igreja
   - Cadastro de membro (Disponível para nível de admin: >= Obreiro)
-  - Inscrições de Acampamentos/Eventos (Ver de ter pagamento direto também)
+  - Inscrições de Acampamentos/Eventos
   - Sistema de Oferta/Dízimo, direto no APP
 
 ## Licença
