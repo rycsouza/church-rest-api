@@ -49,7 +49,7 @@ export default class MercadoPagoService {
         },
       })
 
-      return { url: preference?.init_point }
+      return { url: preference?.init_point, id: preference?.id }
     } catch (error) {
       console.error(error)
       return error

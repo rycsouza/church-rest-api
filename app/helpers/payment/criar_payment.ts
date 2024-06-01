@@ -13,11 +13,14 @@ export default async ({ inscricaoId, eventoId, formaPagamento }: PayementRequest
   try {
     const { inscricao } = await BuscarInscricaoPorIdHelper(inscricaoId)
     const { evento } = await BuscarEventoIdHelper(eventoId)
-    const { usuario } = await BuscarUsuarioIdHelper(inscricao!.responsavel_id)
+    const { usuario } = await BuscarUsuarioIdHelper(inscricao?.responsavel_id)
 
-    const payment = await Constants.FormaPagamento[formaPagamento]({ evento, usuario })
+    const { url, id } = await Constants.FormaPagamento[formaPagamento]({ evento, usuario })
 
-    return { payment }
+    inscricao!.mercado_pago_id = id
+    await inscricao?.save()
+
+    return { payment: { url } }
   } catch (error) {
     throw error
   }
