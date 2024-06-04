@@ -21,7 +21,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       telefone: string
       nome: string
       data_nascimento: string
-    } = inscricaoJSON
+    } = inscricaoJSON?.camposInscricao?.usuario
 
     Object.keys(usuarioData).forEach((key) => {
       if (!key) throw new Error(`${key} é um campo obrigatório!`)
@@ -56,7 +56,6 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
 
     return { inscricao }
   } catch (error) {
-    console.log(error)
     throw error
   }
 }

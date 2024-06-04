@@ -2,23 +2,20 @@ import type { HttpContext } from '@adonisjs/core/http'
 import {
   BuscarInscricaoHelper,
   BuscarInscricaoPorIdHelper,
+  BuscarInscricaoPorResponsavelIdHelper,
   CriarInscricaoHelper,
 } from '../helpers/inscricao/index.js'
+import { BuscarUsuarioCPFHelper } from '../helpers/usuario/index.js'
 
 interface InscricaoPayLoad {
   evento_id: number
   inscricao_json: JSON | string
-  payment_body: JSON | null
 }
 
 export default class InscricaosController {
   async store({ request, response }: HttpContext) {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const inscricaoPayLoad: InscricaoPayLoad = request.only([
-      'inscricao_json',
-      'evento_id',
-      'payment_body',
-    ])
+    const inscricaoPayLoad: InscricaoPayLoad = request.only(['inscricao_json', 'evento_id'])
 
     try {
       return await CriarInscricaoHelper(inscricaoPayLoad)
@@ -44,9 +41,11 @@ export default class InscricaosController {
   }
 
   async show({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const { cpf } = request.params()
     try {
-      return await BuscarInscricaoPorIdHelper(id)
+      const { usuario } = await BuscarUsuarioCPFHelper(cpf)
+
+      return await BuscarInscricaoPorResponsavelIdHelper(usuario?.id)
     } catch (error) {
       return response.status(404).send({
         mensagem:

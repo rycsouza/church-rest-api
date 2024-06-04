@@ -48,7 +48,7 @@ router
     router.post('/criar', [InscricaosController, 'store'])
     router.patch('/atualizar', [InscricaosController, 'update'])
     router.get('/', [InscricaosController, 'index'])
-    router.get('/:id', [InscricaosController, 'show'])
+    router.get('/:cpf', [InscricaosController, 'show'])
     router.delete('/deletar', [InscricaosController, 'delete'])
   })
   .prefix('inscricao')
