@@ -16,10 +16,11 @@ export default class EventosController {
       const eventoPayLoad: any = await request.validateUsing(EventoCreateValidator)
 
       return await CriarEventoHelper(eventoPayLoad)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         messagem:
           'Não foi possível criar evento! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -30,10 +31,11 @@ export default class EventosController {
       const eventoPayLoad = await request.validateUsing(EventoUpdateValidator)
 
       return await AtualizarEventoHelper(id, eventoPayLoad)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         messagem:
           'Não foi possível atualizar o evento! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -43,10 +45,11 @@ export default class EventosController {
       const usuario = auth.user
 
       return await BuscarEventoHelper(usuario!)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         messagem:
           'Não foi possível encontrar os eventos! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -57,8 +60,8 @@ export default class EventosController {
       const usuario = auth.user
 
       return await BuscarEventoIdHelper(id, usuario)
-    } catch {
-      response.status(404).send({ messagem: 'Evento não Encontrado!' })
+    } catch (error) {
+      response.status(400).send({ messagem: 'Evento não Encontrado!', error })
     }
   }
 
@@ -70,8 +73,8 @@ export default class EventosController {
       const { church } = await BuscarChurchPorIdHelper(evento?.church_id)
 
       return { imagem: evento.imagem, forms: evento.formulario_json, church }
-    } catch {
-      response.status(404).send({ messagem: 'Evento não Encontrado!' })
+    } catch (error) {
+      response.status(400).send({ messagem: 'Evento não Encontrado!', error })
     }
   }
 
@@ -80,10 +83,11 @@ export default class EventosController {
       const { id } = request.params()
 
       return await DeletarEventoHelper(id)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         messagem:
           'Não foi possível deletar o evento! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }

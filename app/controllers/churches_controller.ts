@@ -14,10 +14,11 @@ export default class ChurchesController {
       const churchPayLoad = await request.validateUsing(ChurchCreateValidator)
 
       return await CriarChurchHelper(churchPayLoad)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         mensagem:
           'Não foi possível criar a igreja! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -28,10 +29,11 @@ export default class ChurchesController {
       const churchPayLoad = await request.validateUsing(ChurchUpdateValidator)
 
       return await AtualizarChurchHelper(id, churchPayLoad)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         mensagem:
           'Não foi possível atualizar a igreja! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -39,10 +41,11 @@ export default class ChurchesController {
   async index({ response }: HttpContext) {
     try {
       return await BuscarChurchesHelper()
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         messagem:
           'Não foi possível encontrar as igrejas! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -52,8 +55,8 @@ export default class ChurchesController {
       const { id } = request.params()
 
       return await BuscarChurchPorIdHelper(id)
-    } catch {
-      response.status(404).send({ messagem: 'Igreja não encontrada!' })
+    } catch (error) {
+      response.status(400).send({ messagem: 'Igreja não encontrada!', error })
     }
   }
 
@@ -62,10 +65,11 @@ export default class ChurchesController {
       const { id } = request.params()
 
       return await DeletarChurchHelper(id)
-    } catch {
-      response.status(404).send({
+    } catch (error) {
+      response.status(400).send({
         mensagem:
           'Não foi possível deletar a igreja! Caso o erro continue, entre em contato com o suporte!',
+        error,
       })
     }
   }
