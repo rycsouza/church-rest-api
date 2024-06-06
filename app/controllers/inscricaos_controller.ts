@@ -23,7 +23,7 @@ export default class InscricaosController {
       return response.status(400).send({
         mensagem:
           'Não foi possível realizar a inscrição! Caso o erro continue, entre em contato com o suporte.',
-        error: error.message,
+        error,
       })
     }
   }
