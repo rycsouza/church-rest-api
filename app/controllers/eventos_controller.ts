@@ -1,4 +1,5 @@
 import { EventoCreateValidator, EventoUpdateValidator } from '#validators/evento'
+
 import type { HttpContext } from '@adonisjs/core/http'
 import {
   CriarEventoHelper,
@@ -7,6 +8,7 @@ import {
   BuscarEventoIdHelper,
   DeletarEventoHelper,
 } from '../helpers/evento/index.js'
+import { BuscarChurchPorIdHelper } from '../helpers/church/index.js'
 
 export default class EventosController {
   async store({ request, response }: HttpContext) {
@@ -65,8 +67,9 @@ export default class EventosController {
       const { id } = request.params()
 
       const { evento } = await BuscarEventoIdHelper(id)
+      const { church } = await BuscarChurchPorIdHelper(evento?.church_id)
 
-      return { imagem: evento.imagem, forms: evento.formulario_json }
+      return { imagem: evento.imagem, forms: evento.formulario_json, church }
     } catch {
       response.status(404).send({ messagem: 'Evento não Encontrado!' })
     }
