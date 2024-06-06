@@ -19,10 +19,11 @@ export default class InscricaosController {
 
     try {
       return await CriarInscricaoHelper(inscricaoPayLoad)
-    } catch {
-      return response.status(404).send({
+    } catch (error) {
+      return response.status(400).send({
         mensagem:
           'Não foi possível realizar a inscrição! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -33,9 +34,10 @@ export default class InscricaosController {
     try {
       return await BuscarInscricaoHelper(usuario)
     } catch (error) {
-      return response.status(404).send({
+      return response.status(400).send({
         mensagem:
           'Não foi possível buscar as inscrições desse evento! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -47,9 +49,10 @@ export default class InscricaosController {
 
       return await BuscarInscricaoPorResponsavelIdHelper(usuario?.id)
     } catch (error) {
-      return response.status(404).send({
+      return response.status(400).send({
         mensagem:
           'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -65,9 +68,10 @@ export default class InscricaosController {
 
       return { inscricao }
     } catch (error) {
-      return response.status(404).send({
+      return response.status(400).send({
         mensagem:
           'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
@@ -81,9 +85,10 @@ export default class InscricaosController {
 
       return { messagem: `Inscrição ${inscricao?.id} excluída! Evento: ${inscricao?.evento_id}` }
     } catch (error) {
-      return response.status(404).send({
+      return response.status(400).send({
         mensagem:
           'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
+        error,
       })
     }
   }
