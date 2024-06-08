@@ -1,5 +1,5 @@
 import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarUsuarioHelper } from '../usuario/index.js'
+import { CriarUsuarioInscricaoHelper } from '../usuario/index.js'
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
 
@@ -29,7 +29,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
 
     const { evento } = await BuscarEventoIdHelper(inscricaoPayLoad.evento_id)
 
-    const { usuario } = await CriarUsuarioHelper({
+    const { usuario } = await CriarUsuarioInscricaoHelper({
       nome: usuarioData.nome,
       cpf: usuarioData.cpf,
       email: usuarioData.email,
