@@ -13,15 +13,15 @@ export default class Church extends BaseModel {
   @column()
   declare cidade: string
 
-  @column()
-  declare UF: string
+  @column({ columnName: 'UF' })
+  declare uf: string
 
   @column()
   declare logo: string
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   declare data_cadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   declare data_atualizacao: DateTime
 }

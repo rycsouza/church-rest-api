@@ -72,7 +72,17 @@ export default class EventosController {
       const { evento } = await BuscarEventoIdHelper(id)
       const { church } = await BuscarChurchPorIdHelper(evento?.church_id)
 
-      return { imagem: evento.imagem, forms: evento.formulario_json, church }
+      return {
+        evento: {
+          igreja: { nome: church.nome, cidade: church.cidade, uf: church.uf, logo: church.logo },
+          imagem: evento.imagem,
+          nome: evento.nome,
+          data: new Date(evento.data_evento).toLocaleDateString(),
+          valor: evento.valor > 0 ? `R$${evento.valor}` : null,
+          parcelamento: evento.parcelamento > 1 ? `${evento.parcelamento}x` : null,
+          formulario: evento.formulario_json,
+        },
+      }
     } catch (error) {
       response.status(400).send({ messagem: 'Evento não Encontrado!', error })
     }
