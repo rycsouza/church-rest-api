@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
 
 export default class Evento extends BaseModel {
   static table = 'evento'
@@ -30,6 +30,9 @@ export default class Evento extends BaseModel {
 
   @column()
   declare ativo: number
+
+  @column()
+  declare cor: string
 
   @column.dateTime({ autoCreate: true })
   declare data_cadastro: DateTime
