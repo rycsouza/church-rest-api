@@ -8,14 +8,14 @@ import {
 import { BuscarUsuarioCPFHelper } from '../helpers/usuario/index.js'
 
 interface InscricaoPayLoad {
-  evento_id: number
-  inscricao_json: JSON | string
+  eventoId: number
+  inscricaoJson: JSON | string
 }
 
 export default class InscricaosController {
   async store({ request, response }: HttpContext) {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const inscricaoPayLoad: InscricaoPayLoad = request.only(['inscricao_json', 'evento_id'])
+    const inscricaoPayLoad: InscricaoPayLoad = request.only(['inscricaoJson', 'eventoId'])
 
     try {
       return await CriarInscricaoHelper(inscricaoPayLoad)
@@ -83,7 +83,7 @@ export default class InscricaosController {
 
       await inscricao!.delete()
 
-      return { messagem: `Inscrição ${inscricao?.id} excluída! Evento: ${inscricao?.evento_id}` }
+      return { messagem: `Inscrição ${inscricao?.id} excluída! Evento: ${inscricao?.eventoId}` }
     } catch (error) {
       return response.status(400).send({
         mensagem:

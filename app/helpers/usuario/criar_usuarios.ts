@@ -6,9 +6,10 @@ interface UsuarioPayload {
   email: string
   senha: string | undefined
   telefone: string
-  data_nascimento: string
+  dataNascimento: string
   avatar: string | undefined
-  church_id: number
+  churchId: number
+  perfilId?: number
 }
 
 export default async (usuarioPayload: UsuarioPayload) => {
@@ -30,9 +31,10 @@ export default async (usuarioPayload: UsuarioPayload) => {
       email: usuarioPayload.email,
       senha: senha,
       telefone: usuarioPayload.telefone,
-      data_nascimento: Usuario.setDataNascimento(usuarioPayload.data_nascimento),
+      dataNascimento: Usuario.setDataNascimento(usuarioPayload.dataNascimento),
       avatar: avatar,
-      church_id: usuarioPayload.church_id,
+      churchId: usuarioPayload.churchId,
+      perfilId: usuarioPayload.perfilId ? usuarioPayload.perfilId : 1,
     })
 
     return {

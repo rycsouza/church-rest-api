@@ -19,7 +19,7 @@ export default async ({ payment, response }: any) => {
     const inscricao = await Inscricao.findBy('mercado_pago_id', paymentId)
     if (!inscricao) return response.status(400).send('Notificação Inválida!')
 
-    inscricao.situacao_id = Constants.Situacao.Concluido
+    inscricao.situacaoId = Constants.Situacao.Concluido
     await inscricao.save()
 
     return response.status(200).send(`Pagamento aprovado - Inscrição ${inscricao.id} concluída!`)

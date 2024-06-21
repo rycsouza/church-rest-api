@@ -2,14 +2,14 @@ import vine from '@vinejs/vine'
 
 export const InscricaoCreateValidator = vine.compile(
   vine.object({
-    evento_id: vine.number().positive(),
-    inscricao_json: vine.string().trim(),
+    eventoId: vine.number().positive(),
+    inscricaoJson: vine.string().trim(),
   })
 )
 
 export const InscricaoUpdateValidator = vine.compile(
   vine.object({
-    evento_id: vine.number().positive().optional(),
-    inscricao_json: vine.string().trim().optional(),
+    eventoId: vine.number().positive().optional(),
+    inscricaoJson: vine.string().trim().optional(),
   })
 )

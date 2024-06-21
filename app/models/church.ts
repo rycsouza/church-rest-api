@@ -19,9 +19,14 @@ export default class Church extends BaseModel {
   @column()
   declare logo: string
 
-  @column.dateTime({ autoCreate: true, serializeAs: null })
-  declare data_cadastro: DateTime
+  @column.dateTime({ autoCreate: true, serializeAs: null, columnName: 'data_cadastro' })
+  declare dataCadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
-  declare data_atualizacao: DateTime
+  @column.dateTime({
+    autoCreate: true,
+    autoUpdate: true,
+    serializeAs: null,
+    columnName: 'data_atualizacao',
+  })
+  declare dataAtualizacao: DateTime
 }

@@ -11,9 +11,10 @@ export const createUsuarioValidator = vine.compile(
     email: vine.string().trim().email().maxLength(100),
     senha: vine.string().optional(),
     telefone: vine.string().trim().regex(telefoneRegex),
-    data_nascimento: vine.string().trim().regex(dataRegex),
+    dataNascimento: vine.string().trim().regex(dataRegex),
     avatar: vine.string().optional(),
-    church_id: vine.number().positive(),
+    churchId: vine.number().positive(),
+    perfilId: vine.number().positive().optional(),
   })
 )
 

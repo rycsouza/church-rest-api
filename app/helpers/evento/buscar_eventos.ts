@@ -5,8 +5,8 @@ export default async (usuario: Usuario) => {
   try {
     let evento: Evento[] = []
 
-    evento = usuario?.church_id
-      ? await Evento.query().where('church_id', usuario?.church_id).andWhere('ativo', 1)
+    evento = usuario?.churchId
+      ? await Evento.query().where('churchId', usuario?.churchId).andWhere('ativo', 1)
       : await Evento.all()
 
     if (!evento[0]) throw new Error('Sem eventos encontrados!')

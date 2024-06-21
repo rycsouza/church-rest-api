@@ -70,17 +70,17 @@ export default class EventosController {
       const { id } = request.params()
 
       const { evento } = await BuscarEventoIdHelper(id)
-      const { church } = await BuscarChurchPorIdHelper(evento?.church_id)
+      const { church } = await BuscarChurchPorIdHelper(evento?.churchId)
 
       return {
         evento: {
           igreja: { nome: church.nome, cidade: church.cidade, uf: church.uf, logo: church.logo },
           imagem: evento.imagem,
           nome: evento.nome,
-          data: new Date(evento.data_evento).toLocaleDateString('pt-BR'),
+          data: new Date(evento.dataEvento).toLocaleDateString('pt-BR'),
           valor: evento.valor > 0 ? `R$${evento.valor}` : null,
           parcelamento: evento.parcelamento > 1 ? `${evento.parcelamento}x` : null,
-          formulario: evento.formulario_json,
+          formulario: evento.formularioJson,
           cor: evento.cor,
         },
       }

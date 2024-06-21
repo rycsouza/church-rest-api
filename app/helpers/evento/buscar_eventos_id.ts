@@ -8,9 +8,14 @@ export default async (id: number, usuario?: Usuario) => {
     if (
       !evento ||
       evento.ativo === 0 ||
-      (usuario?.church_id && evento.church_id !== usuario?.church_id)
+      (usuario?.churchId && evento.churchId !== usuario?.churchId)
     )
       throw new Error('Evento não encontrado!')
+
+    evento.formularioJson =
+      typeof evento.formularioJson === 'string'
+        ? JSON.parse(evento.formularioJson)
+        : evento.formularioJson
 
     return { evento }
   } catch (error) {

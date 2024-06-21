@@ -1,5 +1,6 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
-import { DateTime } from 'luxon'
+import Church from './church.js'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Evento extends BaseModel {
   static table = 'evento'
@@ -19,14 +20,18 @@ export default class Evento extends BaseModel {
   @column()
   declare imagem: string | undefined
 
-  @column()
-  declare data_evento: string | Date
+  @column({ columnName: 'data_evento' })
+  declare dataEvento: string | Date
 
-  @column()
-  declare formulario_json: string
+  @column({ columnName: 'formulario_json' })
+  declare formularioJson: string
 
-  @column()
-  declare church_id: number
+  @column({ columnName: 'church_id' })
+  declare churchId: number
+  @belongsTo(() => Church, {
+    foreignKey: 'evento_ibfk_1',
+  })
+  declare church: BelongsTo<typeof Church>
 
   @column()
   declare ativo: number
@@ -34,9 +39,9 @@ export default class Evento extends BaseModel {
   @column()
   declare cor: string
 
-  @column.dateTime({ autoCreate: true })
-  declare data_cadastro: DateTime
+  @column({ columnName: 'data_cadastro' })
+  declare dataCadastro: string
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare data_atualizacao: DateTime
+  @column({ columnName: 'data_atualizacao' })
+  declare dataAtualizacao: string
 }

@@ -1,8 +1,10 @@
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
-import { DateTime } from 'luxon'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Church from './church.js'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Perfil from './perfil.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('bcrypt'), {
   uids: ['email', 'cpf', 'telefone'],
@@ -24,26 +26,37 @@ export default class Usuario extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
-  @column({ serializeAs: null })
-  declare senha: string | null
+  @column({ serializeAs: null, columnName: 'senha' })
+  declare senha: string
 
   @column()
   declare telefone: string
 
-  @column()
-  declare data_nascimento: string | Date
+  @column({ columnName: 'data_nascimento' })
+  declare dataNascimento: string | Date
 
   @column()
   declare avatar: string | null
 
-  @column()
-  declare church_id: number
+  @column({ columnName: 'church_id' })
+  declare churchId: number
+  @belongsTo(() => Church, {
+    foreignKey: 'usuario_ibfk_1',
+  })
+  declare church: BelongsTo<typeof Church>
 
-  @column.dateTime({ autoCreate: true, serializeAs: null })
-  declare data_cadastro: DateTime
+  @column({ columnName: 'perfil_id' })
+  declare perfilId: number
+  @belongsTo(() => Perfil, {
+    foreignKey: 'usuario_ibfk_2',
+  })
+  declare perfil: BelongsTo<typeof Perfil>
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
-  declare data_atualizacao: DateTime
+  @column({ serializeAs: null, columnName: 'data_cadastro' })
+  declare dataCadastro: string
+
+  @column({ serializeAs: null, columnName: 'data_atualizacao' })
+  declare dataAtualizacao: string
 
   static setDataNascimento(dataNascimento: any) {
     if (!dataNascimento) return

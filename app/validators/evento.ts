@@ -8,9 +8,9 @@ export const EventoCreateValidator = vine.compile(
     valor: vine.number().positive().optional(),
     parcelamento: vine.number().positive().optional(),
     imagem: vine.string().trim().url().optional(),
-    data_evento: vine.string().trim().regex(dataRegex),
-    formulario_json: vine.string().trim(),
-    church_id: vine.number().positive(),
+    dataEvento: vine.string().trim().regex(dataRegex),
+    formularioJson: vine.string().trim(),
+    churchId: vine.number().positive(),
   })
 )
 
@@ -20,9 +20,9 @@ export const EventoUpdateValidator = vine.compile(
     valor: vine.number().decimal(2).positive().optional(),
     parcelamento: vine.number().positive().optional(),
     imagem: vine.string().trim().url().optional(),
-    data_evento: vine.string().trim().regex(dataRegex).optional(),
-    formulario_json: vine.string().trim().optional(),
-    church_id: vine.number().positive().optional(),
+    dataEvento: vine.string().trim().regex(dataRegex).optional(),
+    formularioJson: vine.string().trim().optional(),
+    churchId: vine.number().positive().optional(),
     ativo: vine.number().optional(),
   })
 )

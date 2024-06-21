@@ -5,9 +5,9 @@ interface EventoPayLoad {
   valor: number | undefined
   parcelamento: number | undefined
   imagem: string | undefined
-  data_evento: string | undefined
-  formulario_json: string | undefined
-  church_id: number | undefined
+  dataEvento: string | undefined
+  formularioJson: string | undefined
+  churchId: number | undefined
 }
 
 export default async (id: number, eventoPayLoad: EventoPayLoad) => {

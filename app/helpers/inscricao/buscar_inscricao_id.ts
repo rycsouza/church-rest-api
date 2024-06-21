@@ -4,7 +4,16 @@ export default async (id: number | undefined) => {
   try {
     if (!id) throw new Error('O ID precisa ser informado!')
 
-    return { inscricao: await Inscricao.findBy('id', id) }
+    const inscricao = await Inscricao.findBy('id', id)
+
+    if (!inscricao) throw Error('Inscrição não encontrada')
+
+    inscricao.inscricaoJson =
+      typeof inscricao.inscricaoJson === 'string'
+        ? JSON.parse(inscricao.inscricaoJson)
+        : inscricao.inscricaoJson
+
+    return { inscricao }
   } catch (error) {
     throw error
   }

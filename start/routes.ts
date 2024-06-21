@@ -59,3 +59,5 @@ router
     router.post('/criar', [PaymentsController, 'store'])
   })
   .prefix('payment')
+
+router.get('/', ({ response }) => response.redirect('/admin'))
