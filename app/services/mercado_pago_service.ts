@@ -46,9 +46,9 @@ export default class MercadoPagoService {
             installments: Number(evento.parcelamento),
           },
           back_urls: {
-            success: 'http://localhost:3000/',
-            failure: 'http://localhost:3000/',
-            pending: 'http://localhost:3000/',
+            success: process.env.MERCADOPAGO_REDIRECT_SUCCESS,
+            failure: process.env.MERCADOPAGO_REDIRECT_FAIL,
+            pending: process.env.MERCADOPAGO_REDIRECT_PENDING,
           },
           auto_return: 'approved',
         },
