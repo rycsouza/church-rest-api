@@ -10,9 +10,14 @@ export default class MercadoPagoService {
   }
 
   static async checkout(data: any) {
-    const { evento, usuario }: { evento: Evento; usuario: Usuario } = data
+    const { evento, usuario, pId }: { evento: Evento; usuario: Usuario; pId: string } = data
 
     try {
+      if (pId) {
+        const preferenceExist = await MercadoPagoConfig.preference.get({ preferenceId: pId })
+        if (preferenceExist) return { url: preferenceExist?.init_point, id: preferenceExist?.id }
+      }
+
       const preference = await MercadoPagoConfig.preference.create({
         body: {
           items: [

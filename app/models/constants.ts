@@ -15,8 +15,8 @@ const Constants = {
     Server_Administrador: 6,
   },
   FormaPagamento: {
-    checkout: async ({ evento, usuario }: any) => {
-      return await MercadoPagoService.checkout({ evento, usuario })
+    checkout: async ({ evento, usuario, pId }: any) => {
+      return await MercadoPagoService.checkout({ evento, usuario, pId })
     },
   },
 }
