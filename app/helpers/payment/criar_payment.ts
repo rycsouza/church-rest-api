@@ -17,7 +17,7 @@ export default async ({ inscricaoId, eventoId, formaPagamento }: PayementRequest
 
     const { url, id } = await Constants.FormaPagamento[formaPagamento]({ evento, usuario })
 
-    inscricao!.mercadoPagoId = id
+    inscricao.merge({ mercadoPagoId: id, inscricaoJson: JSON.stringify(inscricao.inscricaoJson) })
     await inscricao?.save()
 
     return { payment: { url } }
