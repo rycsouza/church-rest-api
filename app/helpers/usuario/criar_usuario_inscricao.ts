@@ -26,7 +26,7 @@ export default async (usuarioPayload: UsuarioPayload) => {
       email: usuarioPayload.email,
       senha: senha,
       telefone: usuarioPayload.telefone,
-      data_nascimento: Usuario.setDataNascimento(usuarioPayload.data_nascimento),
+      dataNascimento: Usuario.setDataNascimento(usuarioPayload.data_nascimento),
       avatar: avatar,
       churchId: usuarioPayload.churchId,
     })
