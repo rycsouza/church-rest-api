@@ -3,13 +3,14 @@ import componentLoader from '../app/admin/component_loader.js'
 import resources from '../app/utils/resouces_instance.js'
 import { AdminJSProviderConfig } from '@adminjs/adonis'
 import { dark, light, noSidebar } from '@adminjs/themes'
+import Constants from '#models/constants'
 
 const adminjsConfig: AdminJSProviderConfig = {
   adapter: {
     enabled: true,
   },
   adminjs: {
-    defaultTheme: dark.id,
+    defaultTheme: light.id,
     availableThemes: [dark, light, noSidebar],
     rootPath: '/admin',
     loginPath: '/admin/login',
@@ -20,28 +21,20 @@ const adminjsConfig: AdminJSProviderConfig = {
     locale: {
       availableLanguages: ['en'],
       language: 'en',
-      translations: {
-        en: {
-          actions: {},
-          messages: {},
-          labels: {},
-          buttons: {},
-          properties: {},
-          components: {},
-          pages: {},
-          ExampleResource: {
-            actions: {},
-            messages: {},
-            labels: {},
-            buttons: {},
-            properties: {},
-          },
-        },
-      },
+      translations: Constants.Traducao,
     },
     branding: {
-      companyName: 'Church Painel',
-      theme: {},
+      companyName: 'BlessedBoard',
+      logo: 'https://emoji.slack-edge.com/TJ9J9HG8Z/geovannabolsonaro2/aca8b53bda1e5433.jpg',
+      favicon: 'https://emoji.slack-edge.com/TJ9J9HG8Z/geovannabolsonaro2/aca8b53bda1e5433.jpg',
+      theme: {
+        colors: {
+          primary100: '#009739',
+          primary80: '#FEDD00',
+          primary60: ' #012169',
+          primary40: '#FFFFFF',
+        },
+      },
       withMadeWithLove: false,
     },
     settings: {

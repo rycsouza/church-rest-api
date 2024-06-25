@@ -26,5 +26,18 @@ export default {
         return context.currentAdmin.usuario.perfilId === Constants.Perfis.Server_Administrador
       },
     },
+    show: {
+      isAccessible: true,
+    },
+    edit: {
+      isAccessible: (context: any) => {
+        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Server_Administrador
+      },
+    },
+    new: {
+      isAccessible: (context: any) => {
+        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Server_Administrador
+      },
+    },
   },
 }
