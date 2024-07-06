@@ -5,7 +5,7 @@ export default {
   id: 'Igrejas',
   titleProperty: 'nome',
   Navigation: {
-    name: 'Administração',
+    name: 'Administracao',
     icon: 'Users',
   },
   Sort: {

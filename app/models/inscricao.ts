@@ -1,6 +1,6 @@
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
-import Usuario from './usuario.js'
+
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Evento from './evento.js'
 import Situacao from './situacao.js'
@@ -10,13 +10,6 @@ export default class Inscricao extends BaseModel {
 
   @column({ isPrimary: true })
   declare id: number
-
-  @column({ columnName: 'responsavel_id' })
-  declare responsavelId: number
-  @belongsTo(() => Usuario, {
-    foreignKey: 'inscricao_ibfk_1',
-  })
-  declare usuario: BelongsTo<typeof Usuario>
 
   @column({ columnName: 'evento_id' })
   declare eventoId: number

@@ -5,7 +5,7 @@ export default {
   id: 'Eventos',
   titleProperty: 'nome',
   Navigation: {
-    name: 'Administração',
+    name: 'Administracao',
     icon: 'Users',
   },
   Sort: {

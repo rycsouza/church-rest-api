@@ -4,7 +4,7 @@ export default {
   modelName: 'Inscricao',
   id: 'Inscricoes',
   Navigation: {
-    name: 'Administração',
+    name: 'Administracao',
     icon: 'Users',
   },
   Sort: {
@@ -38,12 +38,6 @@ export default {
     eventoId: {
       type: 'reference',
       reference: 'Eventos',
-      isRequired: true,
-      isVisible: true,
-    },
-    responsavelId: {
-      type: 'reference',
-      reference: 'Usuarios',
       isRequired: true,
       isVisible: true,
     },

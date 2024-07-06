@@ -5,7 +5,7 @@ export default {
   id: 'Perfis',
   titleProperty: 'descricao',
   Navigation: {
-    name: 'Administração',
+    name: 'Administracao',
     icon: 'Users',
   },
   Sort: {

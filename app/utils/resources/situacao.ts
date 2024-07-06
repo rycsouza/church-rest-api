@@ -5,7 +5,7 @@ export default {
   id: 'Situacoes',
   titleProperty: 'descricao',
   Navigation: {
-    name: 'Administração',
+    name: 'Administracao',
     icon: 'Users',
   },
   Sort: {

@@ -20,7 +20,7 @@ const Constants = {
     },
   },
   Traducao: {
-    en: {
+    ptBR: {
       actions: {
         list: 'Listar',
         new: 'Criar',
@@ -99,6 +99,7 @@ const Constants = {
         Usuarios: 'Usuários',
         Inscricoes: 'Inscrições',
         Situacoes: 'Situações',
+        Administracao: 'Administração',
       },
       buttons: {
         save: 'Salvar',
@@ -107,8 +108,8 @@ const Constants = {
         filterActive: 'Filtrar ({{count}})',
         applyChanges: 'Aplicar mudanças',
         resetFilter: 'Redefinir',
-        confirmRemovalMany: 'Confirmar a remoção de {{count}} registro',
-        confirmRemovalMany_plural: 'Confirmae a remoção de {{count}} registros',
+        confirmRemovalMany: 'Confirmar a exclusão de {{count}} registro',
+        confirmRemovalMany_plural: 'Confirmar a exclusão de {{count}} registros',
         logout: 'Sair',
         login: 'Entrar',
         seeTheDocumentation: 'Ver: <1>a documentação</1>',
@@ -118,7 +119,6 @@ const Constants = {
         cpf: 'CPF',
         uf: 'Estado',
         situacaoId: 'Situação do Pagamento',
-        responsavelId: 'Responsável',
         eventoId: 'Evento',
         descricao: 'Descrição',
         churchId: 'Organização',
@@ -126,14 +126,16 @@ const Constants = {
         perfilId: 'Nível de Acesso',
         inscricaoJson: 'Detalhes da Inscrição',
         mercadoPagoId: 'Referência do Pagamento',
+        urlWhatsapp: 'Link do WhatsApp',
         length: 'Tamanho',
         from: 'De',
         to: 'Até',
+        formularioJson: 'Formulário JSON',
       },
       components: {
         Login: {
           welcomeHeader: 'Bem-vindo',
-          welcomeMessage: 'BLESSEDBOARD - O seu Dashboard de Administração.',
+          welcomeMessage: 'DynamicBoard - O seu Dashboard de Administração.',
           properties: {
             email: 'Email',
             password: 'Senha',

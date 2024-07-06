@@ -39,6 +39,9 @@ export default class Evento extends BaseModel {
   @column()
   declare cor: string
 
+  @column({ columnName: 'url_whatsapp' })
+  declare urlWhatsapp: string
+
   @column({ columnName: 'data_cadastro' })
   declare dataCadastro: string
 

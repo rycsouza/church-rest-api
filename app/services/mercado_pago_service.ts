@@ -1,7 +1,4 @@
 import MercadoPagoConfig from '#config/mercadopago'
-/* eslint-disable unicorn/no-await-expression-member */
-import Evento from '#models/evento'
-import Usuario from '#models/usuario'
 
 export default class MercadoPagoService {
   static async verificarStatusPagamento(paymentId: number) {
@@ -10,7 +7,7 @@ export default class MercadoPagoService {
   }
 
   static async checkout(data: any) {
-    const { evento, usuario, pId }: { evento: Evento; usuario: Usuario; pId: string } = data
+    const { evento, usuario, pId }: any = data
 
     try {
       if (pId) {
@@ -31,11 +28,11 @@ export default class MercadoPagoService {
           ],
           payer: {
             name: usuario.nome,
-            email: usuario.email,
-            phone: {
-              area_code: usuario.telefone.substring(0, 2),
-              number: usuario.telefone.substring(2, 11),
-            },
+            // email: usuario.email,
+            // phone: {
+            //   area_code: usuario.telefone.substring(0, 2),
+            //   number: usuario.telefone.substring(2, 11),
+            // },
             identification: {
               number: usuario.cpf,
               type: 'CPF',
@@ -56,7 +53,7 @@ export default class MercadoPagoService {
 
       return { url: preference?.init_point, id: preference?.id }
     } catch (error) {
-      console.error(error)
+      console.error('Erro de Pagamento: ', error)
       return error
     }
   }

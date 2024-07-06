@@ -1,5 +1,5 @@
 import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarUsuarioInscricaoHelper } from '../usuario/index.js'
+import { CriarPagamento } from '../payment/index.js'
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
 
@@ -15,51 +15,29 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
         ? JSON.parse(inscricaoPayLoad.inscricaoJson)
         : inscricaoPayLoad.inscricaoJson
 
-    const usuarioData: {
-      cpf: string
-      email: string
-      telefone: string
-      nome: string
-      dataNascimento: string
-    } = inscricaoJSON?.camposInscricao?.usuario
-
-    Object.keys(usuarioData).forEach((key) => {
-      if (!key) throw new Error(`${key} é um campo obrigatório!`)
-    })
+    if (!inscricaoJSON?.camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
 
     const { evento } = await BuscarEventoIdHelper(inscricaoPayLoad.eventoId)
 
-    const { usuario } = await CriarUsuarioInscricaoHelper({
-      nome: usuarioData.nome,
-      cpf: usuarioData.cpf,
-      email: usuarioData.email,
-      telefone: usuarioData.telefone,
-      data_nascimento: usuarioData.dataNascimento,
-      senha: undefined,
-      avatar: undefined,
-      churchId: evento!.churchId,
+    const inscricao = await Inscricao.create({
+      eventoId: evento.id,
+      situacaoId: Constants.Situacao.Pendente,
+      inscricaoJson: inscricaoJSON,
     })
 
-    let inscricao = await Inscricao.query()
-      .where('evento_id', evento.id)
-      .andWhere('responsavel_id', usuario.id)
-      .first()
+    const { payment } = await CriarPagamento({
+      inscricaoId: inscricao.id,
+      eventoId: evento.id,
+      formaPagamento: 'checkout',
+      usuario: {
+        cpf: inscricaoJSON?.camposInscricao.cpf,
+        nome: inscricaoJSON?.camposInscricao.nome,
+        email: inscricaoJSON?.camposInscricao.telefone,
+        telefone: inscricaoJSON?.camposInscricao.email,
+      },
+    })
 
-    if (!inscricao) {
-      inscricao = await Inscricao.create({
-        eventoId: evento.id,
-        responsavelId: usuario.id,
-        situacaoId: Constants.Situacao.Pendente,
-        inscricaoJson: inscricaoJSON,
-      })
-    }
-
-    inscricao.inscricaoJson =
-      typeof inscricao.inscricaoJson === 'string'
-        ? JSON.parse(inscricao.inscricaoJson)
-        : inscricao.inscricaoJson
-
-    return { inscricao }
+    return { payment, whatsapp: evento.urlWhatsapp, inscricao }
   } catch (error) {
     throw error
   }

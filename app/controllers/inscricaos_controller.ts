@@ -2,10 +2,9 @@ import type { HttpContext } from '@adonisjs/core/http'
 import {
   BuscarInscricaoHelper,
   BuscarInscricaoPorIdHelper,
-  BuscarInscricaoPorResponsavelIdHelper,
+  BuscarInscricaoCPF,
   CriarInscricaoHelper,
 } from '../helpers/inscricao/index.js'
-import { BuscarUsuarioCPFHelper } from '../helpers/usuario/index.js'
 
 interface InscricaoPayLoad {
   eventoId: number
@@ -42,12 +41,26 @@ export default class InscricaosController {
     }
   }
 
-  async show({ request, response }: HttpContext) {
+  async buscarPorCPF({ request, response }: HttpContext) {
+    const { eventoId } = request.all()
     const { cpf } = request.params()
-    try {
-      const { usuario } = await BuscarUsuarioCPFHelper(cpf)
 
-      return await BuscarInscricaoPorResponsavelIdHelper(usuario?.id)
+    try {
+      return await BuscarInscricaoCPF({ cpf, eventoId })
+    } catch (error) {
+      return response.status(400).send({
+        mensagem:
+          'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
+        error,
+      })
+    }
+  }
+
+  async show({ request, response }: HttpContext) {
+    const { id } = request.params()
+
+    try {
+      return await BuscarInscricaoPorIdHelper(id)
     } catch (error) {
       return response.status(400).send({
         mensagem:

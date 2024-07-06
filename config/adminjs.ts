@@ -19,20 +19,18 @@ const adminjsConfig: AdminJSProviderConfig = {
     resources: resources,
     pages: {},
     locale: {
-      availableLanguages: ['en'],
-      language: 'en',
+      availableLanguages: ['ptBR'],
+      language: 'ptBR',
       translations: Constants.Traducao,
     },
     branding: {
-      companyName: 'BlessedBoard',
-      logo: 'https://emoji.slack-edge.com/TJ9J9HG8Z/geovannabolsonaro2/aca8b53bda1e5433.jpg',
-      favicon: 'https://emoji.slack-edge.com/TJ9J9HG8Z/geovannabolsonaro2/aca8b53bda1e5433.jpg',
+      companyName: 'Dynamic Tech',
+      logo: 'https://firebasestorage.googleapis.com/v0/b/church-project-20605.appspot.com/o/Dynamic%20(3)%201.png?alt=media&token=18eda43c-fe20-40f2-81d0-9fc3a6c6d402',
+      favicon:
+        'https://firebasestorage.googleapis.com/v0/b/church-project-20605.appspot.com/o/Dynamic%20(1).png?alt=media&token=2b05377d-0d72-4c7f-9229-e1728bce13ca',
       theme: {
         colors: {
-          primary100: '#009739',
-          primary80: '#FEDD00',
-          primary60: ' #012169',
-          primary40: '#FFFFFF',
+          primary100: '#8906E6',
         },
       },
       withMadeWithLove: false,
