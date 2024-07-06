@@ -57,7 +57,6 @@ router
 router
   .group(() => {
     router.post('/verify', [PaymentsController, 'handle'])
-    router.post('/criar', [PaymentsController, 'store'])
   })
   .prefix('payment')
 

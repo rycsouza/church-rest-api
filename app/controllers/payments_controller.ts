@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { CriarPagamento, VerificarPagamento } from '../helpers/payment/index.js'
+import { VerificarPagamento } from '../helpers/payment/index.js'
 
 export default class PaymentsController {
   async handle({ request, response }: HttpContext) {
