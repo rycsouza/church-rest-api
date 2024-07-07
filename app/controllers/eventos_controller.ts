@@ -81,7 +81,7 @@ export default class EventosController {
           valor: evento.valor > 0 ? `R$${evento.valor}` : null,
           parcelamento: evento.parcelamento > 1 ? `${evento.parcelamento}x` : null,
           formulario: evento.formularioJson,
-          cor: evento.cor,
+          cor: JSON.parse(evento.cor),
         },
       }
     } catch (error) {
