@@ -37,7 +37,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       },
     })
 
-    return { payment, whatsapp: evento.urlWhatsapp, inscricao }
+    return { payment, whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao,  inscricao }
   } catch (error) {
     throw error
   }
