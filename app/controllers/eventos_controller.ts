@@ -82,6 +82,7 @@ export default class EventosController {
           parcelamento: evento.parcelamento > 1 ? `${evento.parcelamento}x` : null,
           formulario: evento.formularioJson,
           cor: JSON.parse(evento.cor),
+          idadeMinima: evento.idadeMinima,
         },
       }
     } catch (error) {

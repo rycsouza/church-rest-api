@@ -27,8 +27,8 @@ export default async ({ cpf, eventoId }: any) => {
         // eslint-disable-next-line unicorn/no-await-expression-member
         const status = (await Situacao.findBy('id', inscricao.situacaoId))?.descricao
 
-        const { payment } = await CriarPagamento({ 
-          inscricaoId: inscricao.id, 
+        const { payment } = await CriarPagamento({
+          inscricaoId: inscricao.id,
           eventoId: evento.id,
           formaPagamento: 'checkout',
           usuario: {
@@ -36,10 +36,15 @@ export default async ({ cpf, eventoId }: any) => {
             nome: inscricaoJSON.camposInscricao.nome,
             email: inscricaoJSON.camposInscricao.telefone,
             telefone: inscricaoJSON.camposInscricao.email,
-          }
+          },
         })
 
-        inscricoesFormatadas.push({ status, whatsapp: evento.urlWhatsapp, url_checkout: payment?.url, inscricao })
+        inscricoesFormatadas.push({
+          status,
+          whatsapp: evento.urlWhatsapp,
+          url_checkout: payment?.url,
+          inscricao,
+        })
       })
     )
     return { inscricoes: inscricoesFormatadas }

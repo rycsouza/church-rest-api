@@ -45,6 +45,9 @@ export default class Evento extends BaseModel {
   @column({ columnName: 'url_localizacao' })
   declare urlLocalizacao: string
 
+  @column({ columnName: 'idade_minima' })
+  declare idadeMinima: number
+
   @column({ columnName: 'data_cadastro' })
   declare dataCadastro: string
 

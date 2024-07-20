@@ -60,6 +60,27 @@ export default {
       isRequired: true,
       isVisible: true,
     },
+    urlWhatsapp: {
+      isVisible: {
+        show: true,
+        new: true,
+        edit: true,
+      },
+    },
+    urlLocalizacao: {
+      isVisible: {
+        show: true,
+        new: true,
+        edit: true,
+      },
+    },
+    idadeMinima: {
+      isVisible: {
+        show: true,
+        new: true,
+        edit: true,
+      },
+    },
   },
   Actions: {
     list: {
