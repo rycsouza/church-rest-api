@@ -32,8 +32,8 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       usuario: {
         cpf: inscricaoJSON?.camposInscricao.cpf,
         nome: inscricaoJSON?.camposInscricao.nome,
-        email: inscricaoJSON?.camposInscricao.telefone,
-        telefone: inscricaoJSON?.camposInscricao.email,
+        telefone: inscricaoJSON?.camposInscricao.telefone,
+        email: inscricaoJSON?.camposInscricao.email,
       },
     })
 
