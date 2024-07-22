@@ -17,7 +17,11 @@ const authenticate = async ({ email, password }: DefaultAuthenticatePayload) => 
 
   if (!usuario?.senha || !(await hash.verify(usuario.senha, password))) return null
 
-  return { email, usuario }
+  return {
+    email,
+    usuario,
+    avatarUrl: usuario.avatar || '',
+  }
 }
 
 const authProvider = new DefaultAuthProvider({
