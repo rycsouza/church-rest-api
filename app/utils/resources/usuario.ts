@@ -1,4 +1,5 @@
-import Constants from '#models/constants'
+import { ActionContext } from 'adminjs'
+import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 
 export default {
   modelName: 'Usuario',
@@ -50,21 +51,24 @@ export default {
   },
   Actions: {
     list: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId === Constants.Perfis.Server_Administrador
+      before: [BeforeRule],
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
       },
     },
     show: {
-      isAccessible: true,
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
+      },
     },
     edit: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Administrador
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
       },
     },
     new: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId === Constants.Perfis.Server_Administrador
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
       },
     },
   },

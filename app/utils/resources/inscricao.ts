@@ -1,4 +1,5 @@
-import Constants from '#models/constants'
+import { ActionContext } from 'adminjs'
+import { CheckAccess } from '../../helpers/resources/index.js'
 
 export default {
   modelName: 'Inscricao',
@@ -50,21 +51,23 @@ export default {
   },
   Actions: {
     list: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Obreiro
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Obreiro' })
       },
     },
     show: {
-      isAccessible: true,
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Usuario' })
+      },
     },
     edit: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Obreiro
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Obreiro' })
       },
     },
     new: {
-      isAccessible: (context: any) => {
-        return context.currentAdmin.usuario.perfilId >= Constants.Perfis.Obreiro
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Obreiro' })
       },
     },
   },
