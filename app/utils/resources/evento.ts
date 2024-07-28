@@ -109,5 +109,10 @@ export default {
         return CheckAccess({ context, perfil: 'Administrador' })
       },
     },
+    bulkDelete: {
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
+      },
+    },
   },
 }
