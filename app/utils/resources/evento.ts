@@ -99,6 +99,11 @@ export default {
         return CheckAccess({ context, perfil: 'Administrador' })
       },
     },
+    delete: {
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
+      }
+    },
     new: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Administrador' })
