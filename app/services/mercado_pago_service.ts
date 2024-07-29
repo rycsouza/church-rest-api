@@ -48,6 +48,7 @@ export default class MercadoPagoService {
             pending: process.env.MERCADOPAGO_REDIRECT_PENDING,
           },
           auto_return: 'approved',
+          notification_url: 'https://apichurch.cloud/payment/verify',
         },
       })
 
