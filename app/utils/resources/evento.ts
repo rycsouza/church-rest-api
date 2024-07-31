@@ -1,5 +1,5 @@
 import { ActionContext } from 'adminjs'
-import { CheckAccess } from '../../helpers/resources/index.js'
+import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 
 export default {
   modelName: 'Evento',
@@ -85,6 +85,7 @@ export default {
   },
   Actions: {
     list: {
+      before: [BeforeRule],
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Obreiro' })
       },
@@ -102,7 +103,7 @@ export default {
     delete: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Server_Administrador' })
-      }
+      },
     },
     new: {
       isAccessible: (context: ActionContext) => {

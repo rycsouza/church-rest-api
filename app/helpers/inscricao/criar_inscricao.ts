@@ -25,6 +25,17 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       inscricaoJson: inscricaoJSON,
     })
 
+    if (!evento.valor || evento.valor <= 0) {
+      inscricao.situacaoId = Constants.Situacao.Concluido
+      await inscricao.save()
+
+      return {
+        whatsapp: evento.urlWhatsapp,
+        localizacao: evento.urlLocalizacao,
+        inscricao,
+      }
+    }
+
     const { payment } = await CriarPagamento({
       inscricaoId: inscricao.id,
       eventoId: evento.id,

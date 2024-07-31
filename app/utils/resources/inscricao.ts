@@ -1,5 +1,5 @@
-import { ActionContext } from 'adminjs'
-import { CheckAccess } from '../../helpers/resources/index.js'
+import { ActionContext, ActionRequest } from 'adminjs'
+import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 
 export default {
   modelName: 'Inscricao',
@@ -18,6 +18,7 @@ export default {
     },
     inscricaoJson: {
       isVisible: {
+        list: true,
         show: true,
         new: true,
         edit: true,
@@ -32,7 +33,7 @@ export default {
     },
     dataCadastro: {
       isVisible: {
-        list: true,
+        list: false,
         show: true,
       },
     },
@@ -51,11 +52,34 @@ export default {
   },
   Actions: {
     list: {
+      before: [BeforeRule],
+      after: [
+        (originalResponse: any, _request: ActionRequest, _context: ActionContext) => {
+          originalResponse.records.forEach((record: any) => {
+            const inscricao = JSON.parse(record.params.inscricaoJson).camposInscricao
+
+            record.params.inscricaoJson = inscricao.nome
+          })
+
+          return originalResponse
+        },
+      ],
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Obreiro' })
       },
     },
     show: {
+      after: [
+        (originalResponse: any, _request: ActionRequest, _context: ActionContext) => {
+          originalResponse.records.forEach((record: any) => {
+            const inscricao = JSON.parse(record.params.inscricaoJson).camposInscricao
+
+            record.params.inscricaoJson = inscricao.nome
+          })
+
+          return originalResponse
+        },
+      ],
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Usuario' })
       },
@@ -68,7 +92,7 @@ export default {
     delete: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Server_Administrador' })
-      }
+      },
     },
     new: {
       isAccessible: (context: ActionContext) => {
@@ -76,9 +100,7 @@ export default {
       },
     },
     bulkDelete: {
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
-      },
+      isAccessible: false,
     },
   },
 }

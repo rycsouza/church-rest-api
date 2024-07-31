@@ -69,7 +69,7 @@ export default {
     delete: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Server_Administrador' })
-      }
+      },
     },
     new: {
       isAccessible: (context: ActionContext) => {

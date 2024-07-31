@@ -3,17 +3,12 @@ import { ActionContext, ActionRequest } from 'adminjs'
 
 export default (request: ActionRequest, context: ActionContext) => {
   const { query = {} } = request
+  const { usuario } = context.currentAdmin!
 
-  if (context.currentAdmin?.usuario.perfil > Constants.Perfis['Server_Administrador'])
-    return request
+  if (usuario.perfilId === Constants.Perfis.Server_Administrador) return request
 
   //Se não for admin do servidor, deve retornar apenas coisas que são da igreja do usuário
-  const newQuery = {
-    ...query,
-    ['filters.church_id']: 1,
-  }
-
-  request.query = newQuery
+  request.query = { ...query, ['filters.churchId']: usuario.churchId }
 
   return request
 }
