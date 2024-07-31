@@ -37,6 +37,7 @@ export default async ({ cpf, eventoId }: any) => {
             email: inscricaoJSON.camposInscricao.telefone,
             telefone: inscricaoJSON.camposInscricao.email,
           },
+          externalReference: inscricao.id.toString(),
         })
 
         inscricoesFormatadas.push({
