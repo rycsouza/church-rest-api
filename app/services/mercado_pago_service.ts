@@ -3,11 +3,11 @@ import MercadoPagoConfig from '#config/mercadopago'
 export default class MercadoPagoService {
   static async verificarStatusPagamento(paymentId: number) {
     // eslint-disable-next-line unicorn/no-await-expression-member
-    return (await MercadoPagoConfig.payment.get({ id: paymentId })).status
+    return await MercadoPagoConfig.payment.get({ id: paymentId })
   }
 
   static async checkout(data: any) {
-    const { evento, usuario, pId }: any = data
+    const { evento, usuario, pId, externalReference }: any = data
 
     try {
       if (pId) {
@@ -49,6 +49,7 @@ export default class MercadoPagoService {
           },
           auto_return: 'approved',
           notification_url: 'https://apichurch.cloud/payment/verify',
+          external_reference: externalReference,
         },
       })
 

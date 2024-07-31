@@ -12,9 +12,16 @@ interface PayementRequest {
     telefone?: string
     email?: string
   }
+  externalReference: string
 }
 
-export default async ({ inscricaoId, eventoId, formaPagamento, usuario }: PayementRequest) => {
+export default async ({
+  inscricaoId,
+  eventoId,
+  formaPagamento,
+  usuario,
+  externalReference,
+}: PayementRequest) => {
   try {
     const { inscricao } = await BuscarInscricaoPorIdHelper(inscricaoId)
     const { evento } = await BuscarEventoIdHelper(eventoId)
@@ -23,6 +30,7 @@ export default async ({ inscricaoId, eventoId, formaPagamento, usuario }: Payeme
       evento,
       usuario,
       pId: inscricao?.mercadoPagoId,
+      externalReference,
     })
 
     inscricao.merge({ mercadoPagoId: id, inscricaoJson: JSON.stringify(inscricao.inscricaoJson) })

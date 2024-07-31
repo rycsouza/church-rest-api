@@ -13,10 +13,10 @@ export default async ({ payment, response }: any) => {
 
     const paymentStatus = await MercadoPagoService.verificarStatusPagamento(paymentId)
 
-    if (!paymentStatus || paymentStatus !== 'approved')
+    if (!paymentStatus.status || paymentStatus.status !== 'approved')
       return response.status(400).send('Notificação Inválida!')
 
-    const inscricao = await Inscricao.findBy('mercado_pago_id', paymentId)
+    const inscricao = await Inscricao.find(paymentStatus.external_reference)
     if (!inscricao) return response.status(400).send('Notificação Inválida!')
 
     inscricao.situacaoId = Constants.Situacao.Concluido

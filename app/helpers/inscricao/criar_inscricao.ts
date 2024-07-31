@@ -35,9 +35,10 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
         telefone: inscricaoJSON?.camposInscricao.telefone,
         email: inscricaoJSON?.camposInscricao.email,
       },
+      externalReference: inscricao.id.toString(),
     })
 
-    return { payment, whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao,  inscricao }
+    return { payment, whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao, inscricao }
   } catch (error) {
     throw error
   }
