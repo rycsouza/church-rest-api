@@ -69,17 +69,33 @@ export default {
       },
     },
     show: {
-      after: [
-        (originalResponse: any, _request: ActionRequest, _context: ActionContext) => {
-          originalResponse.records.forEach((record: any) => {
-            const inscricao = JSON.parse(record.params.inscricaoJson).camposInscricao
+      //A ideia é fazer cada key ser mostrada individualmente.
+      // after: [
+      //   (originalResponse: any, _request: ActionRequest, _context: ActionContext) => {
+      //     let params = originalResponse.record.params
+      //     const inscricaoJSON = JSON.parse(params.inscricaoJson)
+      //     const keysInscricao = Object.keys(inscricaoJSON.camposInscricao)
+      //     const keysResponsaveis = Object.keys(inscricaoJSON.camposResponsaveis)
 
-            record.params.inscricaoJson = inscricao.nome
-          })
+      //     const keys = keysInscricao.concat(keysResponsaveis)
 
-          return originalResponse
-        },
-      ],
+      //     delete params.inscricaoJson
+      //     keys.forEach((key) => {
+      //       if (!inscricaoJSON.camposInscricao[key] && !inscricaoJSON.camposResponsaveis[key])
+      //         return
+      //       console.log(key)
+
+      //       params = {
+      //         ...params,
+      //         [key]: inscricaoJSON.camposInscricao[key],
+      //       }
+      //     })
+
+      //     originalResponse.record.params = params
+      //     console.log(originalResponse.record.params)
+      //     return originalResponse
+      //   },
+      // ],
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Usuario' })
       },
