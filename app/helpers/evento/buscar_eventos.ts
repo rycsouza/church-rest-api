@@ -3,15 +3,23 @@ import Usuario from '#models/usuario'
 
 export default async (usuario: Usuario) => {
   try {
-    let evento: Evento[] = []
+    let eventos: Evento[] = []
 
-    evento = usuario?.churchId
+    eventos = usuario?.churchId
       ? await Evento.query().where('churchId', usuario?.churchId).andWhere('ativo', 1)
       : await Evento.all()
 
-    if (!evento[0]) throw new Error('Sem eventos encontrados!')
+    if (!eventos[0]) throw new Error('Sem eventos encontrados!')
 
-    return { evento }
+    eventos.map((evento) => {
+      //@ts-ignore
+      evento.formularioJson = JSON.parse(evento.formularioJson)
+      //@ts-ignore
+      evento.cor = JSON.parse(evento.cor)
+    })
+    return {
+      eventos,
+    }
   } catch (error) {
     throw error
   }

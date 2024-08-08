@@ -31,12 +31,13 @@ export default async ({ cpf, eventoId }: any) => {
           usuario: {
             cpf: inscricaoJSON.camposInscricao.cpf,
             nome: inscricaoJSON.camposInscricao.nome,
-            email: inscricaoJSON.camposInscricao.telefone,
-            telefone: inscricaoJSON.camposInscricao.email,
+            email: inscricaoJSON.camposInscricao.email,
+            telefone: inscricaoJSON.camposInscricao.telefone,
           },
           externalReference: inscricao.id.toString(),
         })
 
+        inscricao.inscricaoJson = inscricaoJSON
         inscricoesFormatadas.push({
           status,
           whatsapp: evento.urlWhatsapp,

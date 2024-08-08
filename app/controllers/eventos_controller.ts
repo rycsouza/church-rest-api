@@ -68,7 +68,6 @@ export default class EventosController {
   async showForms({ request, response }: HttpContext) {
     try {
       const { id } = request.params()
-
       const { evento } = await BuscarEventoIdHelper(id)
       const { church } = await BuscarChurchPorIdHelper(evento?.churchId)
 
@@ -81,8 +80,7 @@ export default class EventosController {
           valor: evento.valor > 0 ? `R$${evento.valor}` : null,
           parcelamento: evento.parcelamento > 1 ? `${evento.parcelamento}x` : null,
           formulario: evento.formularioJson,
-          //@ts-ignore
-          cor: JSON.parse(evento.cor),
+          cor: evento.cor,
           idadeMinima: evento.idadeMinima,
         },
       }
