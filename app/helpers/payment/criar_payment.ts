@@ -33,7 +33,7 @@ export default async ({
       externalReference,
     })
 
-    inscricao.merge({ mercadoPagoId: id, inscricaoJson: JSON.stringify(inscricao.inscricaoJson) })
+    inscricao.merge({ mercadoPagoId: id, inscricaoJson: inscricao.inscricaoJson })
     await inscricao?.save()
 
     return { payment: { url } }

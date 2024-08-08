@@ -12,10 +12,10 @@ export default async (id: number, usuario?: Usuario) => {
     )
       throw new Error('Evento não encontrado!')
 
-    evento.formularioJson =
-      typeof evento.formularioJson === 'string'
-        ? JSON.parse(evento.formularioJson)
-        : evento.formularioJson
+    //@ts-ignore
+    evento.formularioJson = JSON.parse(evento.formularioJson)
+    //@ts-ignore
+    evento.cor = JSON.parse(evento.cor)
 
     return { evento }
   } catch (error) {

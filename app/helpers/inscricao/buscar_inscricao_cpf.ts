@@ -1,7 +1,7 @@
-import Inscricao from '#models/inscricao'
-import Situacao from '#models/situacao'
 import { BuscarEventoIdHelper } from '../evento/index.js'
 import { CriarPagamento } from '../payment/index.js'
+import Inscricao from '#models/inscricao'
+import Situacao from '#models/situacao'
 
 export default async ({ cpf, eventoId }: any) => {
   try {
@@ -18,12 +18,9 @@ export default async ({ cpf, eventoId }: any) => {
     let inscricoesFormatadas: any = []
     await Promise.all(
       inscricoes.map(async (inscricao) => {
-        const inscricaoJSON =
-          typeof inscricao.inscricaoJson === 'string'
-            ? JSON.parse(inscricao.inscricaoJson)
-            : inscricao.inscricaoJson
+        //@ts-ignore
+        const inscricaoJSON = JSON.parse(inscricao.inscricaoJson)
 
-        inscricao.inscricaoJson = inscricaoJSON
         // eslint-disable-next-line unicorn/no-await-expression-member
         const status = (await Situacao.findBy('id', inscricao.situacaoId))?.descricao
 

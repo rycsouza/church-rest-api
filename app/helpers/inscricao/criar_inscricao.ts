@@ -10,10 +10,8 @@ interface InscricaoPayLoad {
 
 export default async (inscricaoPayLoad: InscricaoPayLoad) => {
   try {
-    const inscricaoJSON: any =
-      typeof inscricaoPayLoad.inscricaoJson === 'string'
-        ? JSON.parse(inscricaoPayLoad.inscricaoJson)
-        : inscricaoPayLoad.inscricaoJson
+    //@ts-ignore
+    const inscricaoJSON = JSON.parse(inscricaoPayLoad.inscricaoJson)
 
     if (!inscricaoJSON?.camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
 

@@ -4,6 +4,7 @@ import { DateTime } from 'luxon'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Evento from './evento.js'
 import Situacao from './situacao.js'
+import { GenericTypeSelector } from '../helpers/utils/index.js'
 
 export default class Inscricao extends BaseModel {
   static table = 'inscricao'
@@ -25,8 +26,13 @@ export default class Inscricao extends BaseModel {
   })
   declare situacao: BelongsTo<typeof Situacao>
 
-  @column()
-  declare inscricaoJson: JSON | string
+  @column({
+    columnName: 'inscricao_json',
+    //Fazendo tratamento para o Painel
+    prepare: (value) => GenericTypeSelector({ chosenType: 'string', value }),
+    consume: (value) => GenericTypeSelector({ chosenType: 'string', value }),
+  })
+  declare inscricaoJson: JSON
 
   @column({ columnName: 'mercado_pago_id' })
   declare mercadoPagoId: number | undefined

@@ -8,10 +8,8 @@ export default async (id: number | undefined) => {
 
     if (!inscricao) throw Error('Inscrição não encontrada')
 
-    inscricao.inscricaoJson =
-      typeof inscricao.inscricaoJson === 'string'
-        ? JSON.parse(inscricao.inscricaoJson)
-        : inscricao.inscricaoJson
+    //@ts-ignore
+    inscricao.inscricaoJson = JSON.parse(inscricao.inscricaoJson)
 
     return { inscricao }
   } catch (error) {
