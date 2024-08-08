@@ -22,6 +22,7 @@ export default async (eventoPayLoad: EventoPayLoad) => {
 
     if (eventoExistente[0]) return { evento: eventoExistente[0] }
 
+    //@ts-ignore
     const evento = await Evento.create(eventoPayLoad)
 
     return { evento, messagem: 'Evento criado com sucesso!' }

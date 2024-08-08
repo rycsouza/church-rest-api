@@ -16,6 +16,7 @@ export default async (id: number, eventoPayLoad: EventoPayLoad) => {
 
     if (!evento) throw new Error('Evento não encontrado!')
 
+    //@ts-ignore
     evento.merge(eventoPayLoad)
     await evento.save()
 
