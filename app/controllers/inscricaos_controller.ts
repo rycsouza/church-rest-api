@@ -8,7 +8,7 @@ import {
 
 interface InscricaoPayLoad {
   eventoId: number
-  inscricaoJson: JSON | string
+  inscricaoJson: JSON
 }
 
 export default class InscricaosController {

@@ -5,14 +5,15 @@ import Inscricao from '#models/inscricao'
 
 interface InscricaoPayLoad {
   eventoId: number
-  inscricaoJson: JSON | string
+  inscricaoJson: JSON
 }
 
 export default async (inscricaoPayLoad: InscricaoPayLoad) => {
   try {
     //@ts-ignore
-    const inscricaoJSON = JSON.parse(inscricaoPayLoad.inscricaoJson)
+    const inscricaoJSON = inscricaoPayLoad.inscricaoJson
 
+    //@ts-ignore
     if (!inscricaoJSON?.camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
 
     const { evento } = await BuscarEventoIdHelper(inscricaoPayLoad.eventoId)
@@ -39,9 +40,13 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       eventoId: evento.id,
       formaPagamento: 'checkout',
       usuario: {
+        //@ts-ignore
         cpf: inscricaoJSON?.camposInscricao.cpf,
+        //@ts-ignore
         nome: inscricaoJSON?.camposInscricao.nome,
+        //@ts-ignore
         telefone: inscricaoJSON?.camposInscricao.telefone,
+        //@ts-ignore
         email: inscricaoJSON?.camposInscricao.email,
       },
       externalReference: inscricao.id.toString(),
