@@ -1,17 +1,27 @@
-import MercadoPagoConfig from '#config/mercadopago'
+import MPConfig from '#config/mercadopago'
 
 export default class MercadoPagoService {
-  static async verificarStatusPagamento(paymentId: number) {
-    // eslint-disable-next-line unicorn/no-await-expression-member
+  static async verificarStatusPagamento({
+    churchId,
+    paymentId,
+  }: {
+    churchId: number
+    paymentId: number
+  }) {
+    const MercadoPagoConfig = await MPConfig({ churchId })
+
     return await MercadoPagoConfig.payment.get({ id: paymentId })
   }
 
   static async checkout(data: any) {
     const { evento, usuario, pId, externalReference }: any = data
+    const MercadoPagoConfig = await MPConfig({ churchId: evento.churchId })
 
     try {
       if (pId) {
-        const preferenceExist = await MercadoPagoConfig.preference.get({ preferenceId: pId })
+        const preferenceExist = await MercadoPagoConfig.preference.get({
+          preferenceId: pId,
+        })
         if (preferenceExist) return { url: preferenceExist?.init_point, id: preferenceExist?.id }
       }
 
@@ -48,7 +58,7 @@ export default class MercadoPagoService {
             pending: process.env.MERCADOPAGO_REDIRECT_PENDING,
           },
           auto_return: 'approved',
-          notification_url: 'https://apichurch.cloud/payment/verify',
+          notification_url: `https://apichurch.cloud/payment/verify?churchId=${evento.churchId}`,
           external_reference: externalReference,
         },
       })

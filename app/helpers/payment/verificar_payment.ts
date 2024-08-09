@@ -11,7 +11,11 @@ export default async ({ payment, response }: any) => {
       typeof payment.data.id === 'string' ? Number(payment.data.id) : payment.data.id
     if (!paymentId) return response.status(400).send('Notificação Inválida!')
 
-    const paymentStatus = await MercadoPagoService.verificarStatusPagamento(paymentId)
+    const { churchId } = payment
+    const paymentStatus = await MercadoPagoService.verificarStatusPagamento({
+      churchId,
+      paymentId,
+    })
 
     if (!paymentStatus.status || paymentStatus.status !== 'approved')
       return response.status(400).send('Notificação Inválida!')
