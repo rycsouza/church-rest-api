@@ -10,13 +10,23 @@ const MPConfig = async ({ churchId }: { churchId: number }) => {
     .andWhere({ tag })
     .andWhere({ church_id: churchId })
 
-  const ACCESS_TOKEN = JSON.parse(credencial[0].credencialJson).ACCESS_TOKEN
+  const credencialJSON = JSON.parse(credencial[0].credencialJson)
+  credencialJSON.NOTIFICATION_URL = credencialJSON.NOTIFICATION_URL.replace(
+    '{{churchId}}',
+    churchId
+  )
+
+  const ACCESS_TOKEN = credencialJSON.ACCESS_TOKEN
 
   const client = new MercadoPagoConfig({
     accessToken: ACCESS_TOKEN,
   })
 
-  return { preference: new Preference(client), payment: new Payment(client) }
+  return {
+    preference: new Preference(client),
+    payment: new Payment(client),
+    credencial: credencialJSON,
+  }
 }
 
 export default MPConfig
