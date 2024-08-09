@@ -17,6 +17,10 @@ export default class MercadoPagoService {
     const { evento, usuario, pId, externalReference }: any = data
     const MercadoPagoConfig = await MPConfig({ churchId: evento.churchId })
 
+    MercadoPagoConfig.credencial.REDIRECT_URL = MercadoPagoConfig.credencial.REDIRECT_URL.replace(
+      '{{eventoId}}',
+      evento.id
+    )
     try {
       if (pId) {
         const preferenceExist = await MercadoPagoConfig.preference.get({
@@ -53,9 +57,9 @@ export default class MercadoPagoService {
             installments: Number(evento.parcelamento),
           },
           back_urls: {
-            success: process.env.MERCADOPAGO_REDIRECT_SUCCESS,
-            failure: process.env.MERCADOPAGO_REDIRECT_FAIL,
-            pending: process.env.MERCADOPAGO_REDIRECT_PENDING,
+            success: MercadoPagoConfig.credencial.REDIRECT_URL,
+            failure: MercadoPagoConfig.credencial.REDIRECT_URL,
+            pending: MercadoPagoConfig.credencial.REDIRECT_URL,
           },
           auto_return: 'approved',
           notification_url: MercadoPagoConfig.credencial.NOTIFICATION_URL,
