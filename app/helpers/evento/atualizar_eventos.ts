@@ -6,7 +6,7 @@ interface EventoPayLoad {
   parcelamento: number | undefined
   imagem: string | undefined
   dataEvento: string | undefined
-  formularioJson: string | undefined
+  formularioJson: object | undefined
   churchId: number | undefined
 }
 
