@@ -1,34 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprovante de Inscrição</title>
     <style>
-      #comprovante {
-          border: 1px solid #000;
-          padding: 20px;
-          width: 300px;
-          text-align: center;
-          font-family: Arial, sans-serif;
-      }
-      .header {
-          font-size: 24px;
-          font-weight: bold;
-      }
-      .details {
-          margin-top: 10px;
-      }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #e0e0e0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .content p {
+            color: #444;
+            margin: 12px 0;
+            font-size: 17px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #222;
+        }
     </style>
-  </head>
-  <body>
-    <div id="comprovante">
-      <div class="header">Comprovante de Inscrição</div>
-      <div class="details">
-        <p>Nome: João da Silva</p>
-        <p>Evento: Conferência 2024</p>
-        <p>Data: 11 de Agosto de 2024</p>
-      </div>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          <h1>Comprovante de Inscrição</h1>
+          @if(id)
+          <p><span class="highlight">{{ id }}</span></p>
+          @endif
+          </div>
+          <div class="content">
+            @if(nome)
+            <p>Nome: <span class="highlight">{{ nome }}</span></p>
+            @endif
+            @if(cpf)
+            <p>CPF: <span class="highlight">{{ cpf }}</span></p>
+            @endif
+            @if(evento)
+            <p>Evento: <span class="highlight">{{ evento }}</span></p>
+            @endif
+            @if(valor && valor > 0)
+            <p>Valor: <span class="highlight">{{ valor }}</span></p>
+            @endif
+            @if(situacao)
+            <p>Pagamento: <span class="highlight">{{ situacao }}</span></p>
+            @endif
+        </div>
+        <div class="footer">
+            <p>Obrigado por se inscrever!</p>
+            <p>{{ igreja }}</p>
+        </div>
     </div>
-  </body>
+</body>
 </html>

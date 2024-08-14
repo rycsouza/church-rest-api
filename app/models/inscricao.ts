@@ -15,14 +15,14 @@ export default class Inscricao extends BaseModel {
   @column({ columnName: 'evento_id' })
   declare eventoId: number
   @belongsTo(() => Evento, {
-    foreignKey: 'inscricao_ibfk_2',
+    foreignKey: 'eventoId',
   })
   declare evento: BelongsTo<typeof Evento>
 
   @column({ columnName: 'situacao_id' })
   declare situacaoId: number
   @belongsTo(() => Situacao, {
-    foreignKey: 'inscricao_ibfk_3',
+    foreignKey: 'situacaoId',
   })
   declare situacao: BelongsTo<typeof Situacao>
 

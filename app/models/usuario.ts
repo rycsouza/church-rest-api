@@ -41,14 +41,14 @@ export default class Usuario extends compose(BaseModel, AuthFinder) {
   @column({ columnName: 'church_id' })
   declare churchId: number
   @belongsTo(() => Church, {
-    foreignKey: 'usuario_ibfk_1',
+    foreignKey: 'churchId',
   })
   declare church: BelongsTo<typeof Church>
 
   @column({ columnName: 'perfil_id' })
   declare perfilId: number
   @belongsTo(() => Perfil, {
-    foreignKey: 'usuario_ibfk_2',
+    foreignKey: 'perfilId',
   })
   declare perfil: BelongsTo<typeof Perfil>
 

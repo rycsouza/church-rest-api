@@ -25,7 +25,7 @@ export default class Church extends BaseModel {
     consume: (value) => GenericTypeSelector({ chosenType: 'string', value }),
     prepare: (value) => GenericTypeSelector({ chosenType: 'string', value }),
   })
-  declare configJson: JSON
+  declare configJson: object
 
   @column.dateTime({ autoCreate: true, serializeAs: null, columnName: 'data_cadastro' })
   declare dataCadastro: DateTime

@@ -1,7 +1,9 @@
-import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarPagamento } from '../payment/index.js'
+//@ts-nocheck
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
+import MailService from '#services/mail_service'
+import { BuscarEventoIdHelper } from '../evento/index.js'
+import { CriarPagamento } from '../payment/index.js'
 
 interface InscricaoPayLoad {
   eventoId: number
@@ -10,11 +12,10 @@ interface InscricaoPayLoad {
 
 export default async (inscricaoPayLoad: InscricaoPayLoad) => {
   try {
-    //@ts-ignore
     const inscricaoJSON = inscricaoPayLoad.inscricaoJson
+    const camposInscricao = inscricaoJSON?.camposInscricao
 
-    //@ts-ignore
-    if (!inscricaoJSON?.camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
+    if (!camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
 
     const { evento } = await BuscarEventoIdHelper(inscricaoPayLoad.eventoId)
 
@@ -27,6 +28,27 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
     if (!evento.valor || evento.valor <= 0) {
       inscricao.situacaoId = Constants.Situacao.Concluido
       await inscricao.save()
+
+      if (camposInscricao?.email) {
+        await inscricao.load('situacao')
+        await evento.load('church')
+
+        await MailService.send({
+          sender: { email: JSON.parse(evento.church.configJson)?.email, name: evento.church.nome },
+          receiver: camposInscricao.email,
+          subject: `${evento.nome} - Comprovante de Inscrição`,
+          htmlFile: 'comprovante_inscricao',
+          params: {
+            nome: camposInscricao.nome,
+            cpf: camposInscricao.cpf,
+            evento: evento.nome,
+            valor: evento.valor,
+            situacao: inscricao.situacao.descricao,
+            id: inscricao.id,
+            igreja: evento.church.nome,
+          },
+        })
+      }
 
       return {
         whatsapp: evento.urlWhatsapp,
@@ -41,13 +63,13 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       formaPagamento: 'checkout',
       usuario: {
         //@ts-ignore
-        cpf: inscricaoJSON?.camposInscricao.cpf,
+        cpf: camposInscricao.cpf,
         //@ts-ignore
-        nome: inscricaoJSON?.camposInscricao.nome,
+        nome: camposInscricao.nome,
         //@ts-ignore
-        telefone: inscricaoJSON?.camposInscricao.telefone,
+        telefone: camposInscricao.telefone,
         //@ts-ignore
-        email: inscricaoJSON?.camposInscricao.email,
+        email: camposInscricao.email,
       },
       externalReference: inscricao.id.toString(),
     })

@@ -36,7 +36,7 @@ export default class Evento extends BaseModel {
   @column({ columnName: 'church_id' })
   declare churchId: number
   @belongsTo(() => Church, {
-    foreignKey: 'evento_ibfk_1',
+    foreignKey: 'churchId',
   })
   declare church: BelongsTo<typeof Church>
 
