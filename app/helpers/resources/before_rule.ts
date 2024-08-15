@@ -9,11 +9,12 @@ export default (request: ActionRequest, context: ActionContext) => {
     .properties()
     .find((property) => property.path() === 'churchId')
 
-  if ((!churchId || !resourceHasPracaId) && perfilId === Constants.Perfis.Server_Administrador)
+  if ((!churchId || !resourceHasPracaId) && perfilId === Constants.Perfis.Server_Administrador) {
     return request
+  }
 
   //Se não for admin do servidor, deve retornar apenas coisas que são da igreja do usuário
-  request.query = { ...query, ['filters.churchId']: churchId }
+  if (churchId) request.query = { ...query, ['filters.churchId']: churchId }
 
   return request
 }
