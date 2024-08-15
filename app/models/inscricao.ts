@@ -5,6 +5,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Evento from './evento.js'
 import Situacao from './situacao.js'
 import { GenericTypeSelector } from '../helpers/utils/index.js'
+import Church from './church.js'
 
 export default class Inscricao extends BaseModel {
   static table = 'inscricao'
@@ -37,9 +38,35 @@ export default class Inscricao extends BaseModel {
   @column({ columnName: 'mercado_pago_id' })
   declare mercadoPagoId: number | undefined
 
-  @column.dateTime({ autoCreate: true, columnName: 'data_cadastro' })
+  @column({ columnName: 'church_id' })
+  declare churchId: number
+  @belongsTo(() => Church, {
+    foreignKey: 'church_id',
+  })
+  declare church: BelongsTo<typeof Church>
+
+  @column.dateTime({
+    autoCreate: true,
+    columnName: 'data_cadastro',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
+  })
   declare dataCadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'data_atualizacao' })
+  @column.dateTime({
+    autoCreate: true,
+    autoUpdate: true,
+    columnName: 'data_atualizacao',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
+  })
   declare dataAtualizacao: DateTime
 }

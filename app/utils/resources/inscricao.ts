@@ -1,5 +1,5 @@
-import { ActionContext, ActionRequest } from 'adminjs'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
+import { ActionContext, ActionRequest } from 'adminjs'
 
 export default {
   modelName: 'Inscricao',
@@ -46,6 +46,12 @@ export default {
     situacaoId: {
       type: 'reference',
       reference: 'Situacoes',
+      isRequired: true,
+      isVisible: true,
+    },
+    churchId: {
+      type: 'reference',
+      reference: 'Igrejas',
       isRequired: true,
       isVisible: true,
     },

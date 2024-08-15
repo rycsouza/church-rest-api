@@ -1,6 +1,7 @@
-import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import Church from './church.js'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
+
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { GenericTypeSelector } from '../helpers/utils/index.js'
 
@@ -33,9 +34,28 @@ export default class Credencial extends BaseModel {
   })
   declare credencialJson: string
 
-  @column.dateTime({ autoCreate: true, columnName: 'data_cadastro' })
+  @column.dateTime({
+    autoCreate: true,
+    columnName: 'data_cadastro',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
+  })
   declare dataCadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'data_atualizacao' })
+  @column.dateTime({
+    autoCreate: true,
+    autoUpdate: true,
+    columnName: 'data_atualizacao',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
+  })
   declare dataAtualizacao: DateTime
 }

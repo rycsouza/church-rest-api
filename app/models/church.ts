@@ -19,7 +19,17 @@ export default class Church extends BaseModel {
   @column()
   declare logo: string
 
-  @column.dateTime({ autoCreate: true, serializeAs: null, columnName: 'data_cadastro' })
+  @column.dateTime({
+    autoCreate: true,
+    serializeAs: null,
+    columnName: 'data_cadastro',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
+  })
   declare dataCadastro: DateTime
 
   @column.dateTime({
@@ -27,6 +37,12 @@ export default class Church extends BaseModel {
     autoUpdate: true,
     serializeAs: null,
     columnName: 'data_atualizacao',
+    prepare: (value: DateTime | string) => {
+      if (value instanceof DateTime) {
+        return value.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      return value
+    },
   })
   declare dataAtualizacao: DateTime
 }

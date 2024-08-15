@@ -22,6 +22,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       eventoId: evento.id,
       situacaoId: Constants.Situacao.Pendente,
       inscricaoJson: inscricaoJSON,
+      churchId: evento.churchId,
     })
 
     if (!evento.valor || evento.valor <= 0) {
