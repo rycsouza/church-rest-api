@@ -3,12 +3,17 @@ import { ActionContext, ActionRequest } from 'adminjs'
 
 export default (request: ActionRequest, context: ActionContext) => {
   const { query = {} } = request
-  const { usuario } = context.currentAdmin!
+  const { currentAdmin, resource } = context
+  const { churchId, perfilId } = currentAdmin!
+  const resourceHasPracaId = resource
+    .properties()
+    .find((property) => property.path() === 'churchId')
 
-  if (usuario.perfilId === Constants.Perfis.Server_Administrador) return request
+  if ((!churchId || !resourceHasPracaId) && perfilId === Constants.Perfis.Server_Administrador)
+    return request
 
   //Se não for admin do servidor, deve retornar apenas coisas que são da igreja do usuário
-  request.query = { ...query, ['filters.churchId']: usuario.churchId }
+  request.query = { ...query, ['filters.churchId']: churchId }
 
   return request
 }
