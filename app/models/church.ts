@@ -1,5 +1,6 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
+import { GenericTypeSelector } from '../helpers/utils/index.js'
 
 export default class Church extends BaseModel {
   static table = 'church'
@@ -18,6 +19,13 @@ export default class Church extends BaseModel {
 
   @column()
   declare logo: string
+
+  @column({
+    columnName: 'config_json',
+    consume: (value) => GenericTypeSelector({ chosenType: 'string', value }),
+    prepare: (value) => GenericTypeSelector({ chosenType: 'string', value }),
+  })
+  declare configJson: object
 
   @column.dateTime({
     autoCreate: true,

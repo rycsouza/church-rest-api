@@ -14,12 +14,12 @@ export default class Credencial extends BaseModel {
   @column()
   declare tag: string
 
-  @column()
-  declare church_id: number
+  @column({ columnName: 'church_id' })
+  declare churchId: number
   @belongsTo(() => Church, {
-    foreignKey: 'credencial_ibfk_1',
+    foreignKey: 'churchId',
   })
-  declare situacao: BelongsTo<typeof Church>
+  declare church: BelongsTo<typeof Church>
 
   @column()
   declare gateway: string

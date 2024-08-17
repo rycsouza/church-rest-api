@@ -1,6 +1,8 @@
+//@ts-nocheck
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
 import MercadoPagoService from '#services/mercado_pago_service'
+import { EnviarComprovanteDeInscricao } from '../inscricao/index.js'
 
 export default async ({ payment, response }: any) => {
   try {
@@ -25,6 +27,8 @@ export default async ({ payment, response }: any) => {
 
     inscricao.situacaoId = Constants.Situacao.Concluido
     await inscricao.save()
+
+    await EnviarComprovanteDeInscricao({ inscricao })
 
     return response.status(200).send(`Pagamento aprovado - Inscrição ${inscricao.id} concluída!`)
   } catch (error) {

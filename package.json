@@ -41,7 +41,8 @@
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.4.16",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.15.0",
+    "@types/qrcode-terminal": "^0.12.2",
     "eslint": "^8.57.0",
     "hot-hook": "^0.2.1",
     "pino-pretty": "^11.0.0",
@@ -54,9 +55,10 @@
     "@adminjs/adonis": "^1.1.0",
     "@adminjs/themes": "^1.0.1",
     "@adonisjs/auth": "^9.2.0",
-    "@adonisjs/core": "^6.8.0",
+    "@adonisjs/core": "^6.12.1",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^20.5.1",
+    "@adonisjs/mail": "^9.2.2",
     "@adonisjs/session": "^7.4.0",
     "@adonisjs/shield": "^8.1.1",
     "@adonisjs/static": "^1.1.1",
@@ -68,7 +70,10 @@
     "luxon": "^3.4.4",
     "mercadopago": "^2.0.9",
     "mysql2": "^3.9.7",
-    "reflect-metadata": "^0.2.2"
+    "puppeteer": "^23.1.0",
+    "qrcode-terminal": "^0.12.0",
+    "reflect-metadata": "^0.2.2",
+    "whatsapp-web.js": "^1.25.0"
   },
   "hotHook": {
     "boundaries": [

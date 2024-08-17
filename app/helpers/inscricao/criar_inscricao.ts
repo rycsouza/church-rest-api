@@ -1,7 +1,9 @@
-import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarPagamento } from '../payment/index.js'
+//@ts-nocheck
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
+import { BuscarEventoIdHelper } from '../evento/index.js'
+import { CriarPagamento } from '../payment/index.js'
+import { EnviarComprovanteDeInscricao } from './index.js'
 
 interface InscricaoPayLoad {
   eventoId: number
@@ -10,11 +12,10 @@ interface InscricaoPayLoad {
 
 export default async (inscricaoPayLoad: InscricaoPayLoad) => {
   try {
-    //@ts-ignore
     const inscricaoJSON = inscricaoPayLoad.inscricaoJson
+    const camposInscricao = inscricaoJSON?.camposInscricao
 
-    //@ts-ignore
-    if (!inscricaoJSON?.camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
+    if (!camposInscricao?.cpf) throw new Error(`CPF é um campo obrigatório!`)
 
     const { evento } = await BuscarEventoIdHelper(inscricaoPayLoad.eventoId)
 
@@ -29,6 +30,8 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       inscricao.situacaoId = Constants.Situacao.Concluido
       await inscricao.save()
 
+      await EnviarComprovanteDeInscricao({ inscricao })
+
       return {
         whatsapp: evento.urlWhatsapp,
         localizacao: evento.urlLocalizacao,
@@ -41,14 +44,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       eventoId: evento.id,
       formaPagamento: 'checkout',
       usuario: {
-        //@ts-ignore
-        cpf: inscricaoJSON?.camposInscricao.cpf,
-        //@ts-ignore
-        nome: inscricaoJSON?.camposInscricao.nome,
-        //@ts-ignore
-        telefone: inscricaoJSON?.camposInscricao.telefone,
-        //@ts-ignore
-        email: inscricaoJSON?.camposInscricao.email,
+        ...camposInscricao,
       },
       externalReference: inscricao.id.toString(),
     })

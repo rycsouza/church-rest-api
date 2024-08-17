@@ -6,6 +6,7 @@ import Evento from './evento.js'
 import Situacao from './situacao.js'
 import { GenericTypeSelector } from '../helpers/utils/index.js'
 import Church from './church.js'
+import Church from './church.js'
 
 export default class Inscricao extends BaseModel {
   static table = 'inscricao'

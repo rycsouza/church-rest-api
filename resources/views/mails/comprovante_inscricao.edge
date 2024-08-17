@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprovante de Inscrição</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #e0e0e0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .content p {
+            color: #444;
+            margin: 12px 0;
+            font-size: 17px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          <h1>Comprovante de Inscrição</h1>
+          @if(inscricao?.id)
+          <p><span class="highlight">{{ inscricao.id }}</span></p>
+          @endif
+          </div>
+          <div class="content">
+            @if(inscricao?.inscricaoJson?.camposInscricao?.nome)
+            <p>Nome: <span class="highlight">{{ inscricao.inscricaoJson.camposInscricao.nome }}</span></p>
+            @endif
+            @if(inscricao?.inscricaoJson?.camposInscricao?.cpf)
+            <p>CPF: <span class="highlight">{{ inscricao.inscricaoJson.camposInscricao.cpf }}</span></p>
+            @endif
+            @if(evento?.nome)
+            <p>Evento: <span class="highlight">{{ evento.nome }}</span></p>
+            @endif
+            @if(evento?.valor && evento?.valor > 0)
+            <p>Valor: <span class="highlight">{{ evento.valor }}</span></p>
+            @endif
+            @if(inscricao?.situacao?.descricao)
+            <p>Pagamento: <span class="highlight">{{ inscricao.situacao.descricao }}</span></p>
+            @endif
+        </div>
+        <div class="footer">
+            <p>Obrigado por se inscrever!</p>
+            @if(evento?.church?.nome)
+            <p>{{ evento.church.nome }}</p>
+            @endif
+        </div>
+    </div>
+</body>
+</html>

@@ -42,11 +42,11 @@ export default class MercadoPagoService {
           ],
           payer: {
             name: usuario.nome,
-            // email: usuario.email,
-            // phone: {
-            //   area_code: usuario.telefone.substring(0, 2),
-            //   number: usuario.telefone.substring(2, 11),
-            // },
+            email: usuario.email,
+            phone: {
+              area_code: usuario.telefone.substring(0, 2),
+              number: usuario.telefone.substring(2, 11),
+            },
             identification: {
               number: usuario.cpf,
               type: 'CPF',
