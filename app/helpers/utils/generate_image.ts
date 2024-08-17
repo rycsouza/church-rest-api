@@ -1,5 +1,6 @@
-import fs from 'node:fs'
+import env from '#start/env'
 import edge from 'edge.js'
+import fs from 'node:fs'
 import puppeteer from 'puppeteer'
 
 interface GenerateImageInterface {
@@ -11,7 +12,7 @@ interface GenerateImageInterface {
 export default async ({ data, midiaFolder, elementoHTML }: GenerateImageInterface) => {
   try {
     const html = await edge.render(`../../resources/views/mails/${midiaFolder}`, data)
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({ executablePath: env.get('CHROMIUN_PATH') })
     const page = await browser.newPage()
 
     await page.setContent(html)
