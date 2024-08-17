@@ -16,14 +16,14 @@ export default class Inscricao extends BaseModel {
   @column({ columnName: 'evento_id' })
   declare eventoId: number
   @belongsTo(() => Evento, {
-    foreignKey: 'evento_id',
+    foreignKey: 'eventoId',
   })
   declare evento: BelongsTo<typeof Evento>
 
   @column({ columnName: 'situacao_id' })
   declare situacaoId: number
   @belongsTo(() => Situacao, {
-    foreignKey: 'situacao_id',
+    foreignKey: 'situacaoId',
   })
   declare situacao: BelongsTo<typeof Situacao>
 
@@ -41,7 +41,7 @@ export default class Inscricao extends BaseModel {
   @column({ columnName: 'church_id' })
   declare churchId: number
   @belongsTo(() => Church, {
-    foreignKey: 'church_id',
+    foreignKey: 'churchId',
   })
   declare church: BelongsTo<typeof Church>
 
