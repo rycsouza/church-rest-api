@@ -2,11 +2,10 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Evento from './evento.js'
-import Situacao from './situacao.js'
 import { GenericTypeSelector } from '../helpers/utils/index.js'
 import Church from './church.js'
-import Church from './church.js'
+import Evento from './evento.js'
+import Situacao from './situacao.js'
 
 export default class Inscricao extends BaseModel {
   static table = 'inscricao'
