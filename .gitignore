@@ -26,3 +26,5 @@ yarn-error.log
 .adminjs
 .wwebjs_cache
 .wwebjs_auth
+
+deploy.sh
