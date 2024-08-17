@@ -1,9 +1,8 @@
 //@ts-nocheck
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
-import MailService from '#services/mail_service'
 import MercadoPagoService from '#services/mercado_pago_service'
-import { BuscarEventoIdHelper } from '../evento/index.js'
+import { EnviarComprovanteDeInscricao } from '../inscricao/index.js'
 
 export default async ({ payment, response }: any) => {
   try {
@@ -29,30 +28,8 @@ export default async ({ payment, response }: any) => {
     inscricao.situacaoId = Constants.Situacao.Concluido
     await inscricao.save()
 
-    const camposInscricao = JSON.parse(inscricao.inscricaoJson)?.camposInscricao
+    await EnviarComprovanteDeInscricao({ inscricao })
 
-    if (!camposInscricao?.email) {
-      const { evento } = await BuscarEventoIdHelper(inscricao.eventoId)
-
-      await inscricao.load('situacao')
-      await evento.load('church')
-
-      await MailService.send({
-        sender: { email: JSON.parse(evento.church.configJson)?.email, name: evento.church.nome },
-        receiver: camposInscricao.email,
-        subject: `${evento.nome} - Comprovante de Inscrição`,
-        htmlFile: 'comprovante_inscricao',
-        params: {
-          nome: camposInscricao.nome,
-          cpf: camposInscricao.cpf,
-          evento: evento.nome,
-          valor: evento.valor,
-          situacao: inscricao.situacao.descricao,
-          id: inscricao.id,
-          igreja: evento.church.nome,
-        },
-      })
-    }
     return response.status(200).send(`Pagamento aprovado - Inscrição ${inscricao.id} concluída!`)
   } catch (error) {
     throw error

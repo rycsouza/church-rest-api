@@ -12,12 +12,19 @@ const htmlPath = '../../resources/views/mails'
 
 export default class MailService {
   static async send({ sender, receiver, subject, htmlFile, params = {} }: MailType) {
-    return await mail.send((message: any) => {
-      message
-        .to(receiver)
-        .from(sender.email, sender.name)
-        .subject(subject)
-        .htmlView(`${htmlPath}/${htmlFile}.edge`, params)
-    })
+    try {
+      await mail.send((message: any) => {
+        message
+          .to(receiver)
+          .from(sender.email, sender.name)
+          .subject(subject)
+          .htmlView(`${htmlPath}/${htmlFile}.edge`, params)
+      })
+
+      return true
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   }
 }

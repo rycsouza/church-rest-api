@@ -24,4 +24,5 @@ yarn-error.log
 # Platform specific
 .DS_Store
 .adminjs
-.adminjs/*
+.wwebjs_cache
+.wwebjs_auth

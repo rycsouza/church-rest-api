@@ -5,6 +5,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Evento from './evento.js'
 import Situacao from './situacao.js'
 import { GenericTypeSelector } from '../helpers/utils/index.js'
+import Church from './church.js'
 
 export default class Inscricao extends BaseModel {
   static table = 'inscricao'
@@ -36,6 +37,13 @@ export default class Inscricao extends BaseModel {
 
   @column({ columnName: 'mercado_pago_id' })
   declare mercadoPagoId: number | undefined
+
+  @column({ columnName: 'church_id' })
+  declare churchId: number
+  @belongsTo(() => Church, {
+    foreignKey: 'churchId',
+  })
+  declare church: BelongsTo<typeof Church>
 
   @column.dateTime({ autoCreate: true, columnName: 'data_cadastro' })
   declare dataCadastro: DateTime
