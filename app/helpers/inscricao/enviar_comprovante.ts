@@ -1,12 +1,12 @@
 //@ts-nocheck
-import Inscricao from '#models/inscricao'
-import MailService from '#services/mail_service'
-import WhatsappService from '#services/whatsapp_service'
-import axios from 'axios'
 import { BuscarEventoIdHelper } from '../evento/index.js'
+import Inscricao from '#models/inscricao'
 import env from '#start/env'
+import axios from 'axios'
+import QRCode from 'qrcode'
 
 const URL_COMUNICACAO_API = env.get('URL_COMUNICACAO_API')
+const URL_CHURCH_API = env.get('URL_CHURCH_API')
 
 export default async ({ inscricao }: { inscricao: Inscricao }) => {
   try {
@@ -24,6 +24,8 @@ export default async ({ inscricao }: { inscricao: Inscricao }) => {
     await inscricao.load('situacao')
     await evento.load('church')
 
+    const qrcode = await QRCode.toDataURL(`${URL_CHURCH_API}/inscricao/show/${inscricao.id}`)
+
     if (camposInscricao?.email) {
       await axios.post(`${URL_COMUNICACAO_API}/mail`, {
         email: camposInscricao.email,
@@ -31,6 +33,7 @@ export default async ({ inscricao }: { inscricao: Inscricao }) => {
         htmlParams: {
           evento,
           inscricao,
+          qrcode,
         },
         templateTag: 'comprovante-inscricao',
       })
@@ -38,14 +41,20 @@ export default async ({ inscricao }: { inscricao: Inscricao }) => {
 
     if (camposInscricao?.telefone) {
       await axios.post(`${URL_COMUNICACAO_API}/whatsapp/media`, {
-        params: { id: inscricao.id, telefone: camposInscricao.telefone, evento, inscricao },
+        params: { id: inscricao.id, telefone: camposInscricao.telefone, evento, inscricao, qrcode },
         templateTag: 'comprovante-inscricao',
       })
     }
 
     if (camposResponsaveis && camposResponsaveis?.telefone !== camposInscricao?.telefone) {
       await axios.post(`${URL_COMUNICACAO_API}/whatsapp/media`, {
-        params: { id: inscricao.id, telefone: camposResponsaveis.telefone, evento, inscricao },
+        params: {
+          id: inscricao.id,
+          telefone: camposResponsaveis.telefone,
+          evento,
+          inscricao,
+          qrcode,
+        },
         templateTag: 'comprovante-inscricao',
       })
     }
