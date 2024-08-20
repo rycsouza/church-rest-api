@@ -33,7 +33,7 @@ export default async ({ inscricao }: { inscricao: Inscricao }) => {
         htmlParams: {
           evento,
           inscricao,
-          qrcode,
+          //qrcode, - O QRCode não está exibindo no email :(
         },
         templateTag: 'comprovante-inscricao',
       })
