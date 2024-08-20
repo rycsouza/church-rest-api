@@ -65,15 +65,13 @@
     "@adonisjs/vite": "^2.0.2",
     "@vinejs/vine": "^2.0.0",
     "adminjs": "^7.8.1",
+    "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "edge.js": "^6.0.2",
     "luxon": "^3.4.4",
     "mercadopago": "^2.0.9",
     "mysql2": "^3.9.7",
-    "puppeteer": "^23.1.0",
-    "qrcode-terminal": "^0.12.0",
-    "reflect-metadata": "^0.2.2",
-    "whatsapp-web.js": "^1.25.0"
+    "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
     "boundaries": [
