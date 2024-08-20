@@ -64,7 +64,12 @@ export default {
           originalResponse.records.forEach((record: any) => {
             const inscricao = JSON.parse(record.params.inscricaoJson).camposInscricao
 
-            record.params.inscricaoJson = inscricao.nome
+            if (inscricao.nome) {
+              record.params.inscricaoJson = `${inscricao.nome}`
+
+              if (inscricao.camiseta)
+                record.params.inscricaoJson = `${inscricao.nome} - ${inscricao.camiseta}`
+            }
           })
 
           return originalResponse
