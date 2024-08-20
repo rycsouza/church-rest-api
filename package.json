@@ -42,6 +42,7 @@
     "@swc/core": "^1.4.16",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20.15.0",
+    "@types/qrcode": "^1.5.5",
     "@types/qrcode-terminal": "^0.12.2",
     "eslint": "^8.57.0",
     "hot-hook": "^0.2.1",
@@ -71,6 +72,7 @@
     "luxon": "^3.4.4",
     "mercadopago": "^2.0.9",
     "mysql2": "^3.9.7",
+    "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
