@@ -4,6 +4,7 @@ import {
   BuscarInscricaoPorIdHelper,
   BuscarInscricaoCPF,
   CriarInscricaoHelper,
+  CheckInInscricaoHelper,
 } from '../helpers/inscricao/index.js'
 
 interface InscricaoPayLoad {
@@ -13,7 +14,6 @@ interface InscricaoPayLoad {
 
 export default class InscricaosController {
   async store({ request, response }: HttpContext) {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const inscricaoPayLoad: InscricaoPayLoad = request.only(['inscricaoJson', 'eventoId'])
 
     try {
@@ -27,16 +27,34 @@ export default class InscricaosController {
     }
   }
 
+  async checkIn({ request, response }: HttpContext) {
+    try {
+      const { id } = request.params()
+
+      return await CheckInInscricaoHelper(id)
+    } catch (error) {
+      const { message, cause } = error
+
+      return response.status(400).send({
+        success: false,
+        message,
+        cause,
+      })
+    }
+  }
+
   async index({ response, auth }: HttpContext) {
     const usuario = auth.user
 
     try {
       return await BuscarInscricaoHelper(usuario)
     } catch (error) {
+      const { message, cause } = error
+
       return response.status(400).send({
-        mensagem:
-          'Não foi possível buscar as inscrições desse evento! Caso o erro continue, entre em contato com o suporte.',
-        error,
+        success: false,
+        message,
+        cause,
       })
     }
   }
@@ -48,10 +66,12 @@ export default class InscricaosController {
     try {
       return await BuscarInscricaoCPF({ cpf, eventoId })
     } catch (error) {
+      const { message, cause } = error
+
       return response.status(400).send({
-        mensagem:
-          'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
-        error,
+        success: false,
+        message,
+        cause,
       })
     }
   }
@@ -62,10 +82,12 @@ export default class InscricaosController {
     try {
       return await BuscarInscricaoPorIdHelper(id)
     } catch (error) {
+      const { message, cause } = error
+
       return response.status(400).send({
-        mensagem:
-          'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
-        error,
+        success: false,
+        message,
+        cause,
       })
     }
   }
@@ -81,10 +103,12 @@ export default class InscricaosController {
 
       return { inscricao }
     } catch (error) {
+      const { message, cause } = error
+
       return response.status(400).send({
-        mensagem:
-          'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
-        error,
+        success: false,
+        message,
+        cause,
       })
     }
   }
@@ -98,10 +122,12 @@ export default class InscricaosController {
 
       return { messagem: `Inscrição ${inscricao?.id} excluída! Evento: ${inscricao?.eventoId}` }
     } catch (error) {
+      const { message, cause } = error
+
       return response.status(400).send({
-        mensagem:
-          'Não foi possível encontrar a inscrição! Caso o erro continue, entre em contato com o suporte.',
-        error,
+        success: false,
+        message,
+        cause,
       })
     }
   }
