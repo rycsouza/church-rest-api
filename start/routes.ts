@@ -47,6 +47,7 @@ router
   .group(() => {
     router.post('/criar', [InscricaosController, 'store'])
     router.patch('/atualizar', [InscricaosController, 'update'])
+    router.patch('/checkin/:id', [InscricaosController, 'checkIn'])
     router.get('/', [InscricaosController, 'index'])
     router.get('/:cpf', [InscricaosController, 'buscarPorCPF'])
     router.get('/show/:id', [InscricaosController, 'show'])

@@ -69,4 +69,7 @@ export default class Inscricao extends BaseModel {
     },
   })
   declare dataAtualizacao: DateTime
+
+  @column({ columnName: 'checkin' })
+  declare checkIn: boolean
 }
