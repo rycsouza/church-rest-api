@@ -17,7 +17,7 @@ export default class Credencial extends BaseModel {
   @column()
   declare church_id: number
   @belongsTo(() => Church, {
-    foreignKey: 'credencial_ibfk_1',
+    foreignKey: 'church_id',
   })
   declare situacao: BelongsTo<typeof Church>
 
