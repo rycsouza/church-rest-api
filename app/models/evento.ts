@@ -59,6 +59,9 @@ export default class Evento extends BaseModel {
   @column({ columnName: 'idade_minima' })
   declare idadeMinima: number
 
+  @column({ columnName: 'nome_grupo' })
+  declare nomeGrupo: string
+
   @column({ columnName: 'data_cadastro' })
   declare dataCadastro: string
 

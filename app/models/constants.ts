@@ -27,6 +27,8 @@ const Constants = {
         edit: 'Editar',
         show: 'Exibir',
         delete: 'Excluir',
+        addToGroup: 'Adicionar ao Grupo',
+        addAllToGroup: 'Adicionar Todos ao Grupo',
         bulkDelete: 'Excluir tudo',
       },
       messages: {
@@ -89,6 +91,7 @@ const Constants = {
           'Você tem que especificar o componente que renderizará este elemento',
       },
       labels: {
+        confirm: 'ATENÇÃO',
         navigation: 'Navegação',
         pages: 'Páginas',
         selectedRecords: 'Selecionado ({{selected}})',
@@ -102,6 +105,8 @@ const Constants = {
         Administracao: 'Administração',
       },
       buttons: {
+        cancel: 'Cancelar',
+        confirm: 'Confirmar',
         save: 'Salvar',
         addNewItem: 'Adicionar Novo Item',
         filter: 'Filtrar',
