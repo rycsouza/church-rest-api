@@ -8,6 +8,7 @@ export default async (id: number | undefined) => {
 
     if (!inscricao) throw Error('Inscrição não encontrada')
 
+    await inscricao.load('situacao')
     //@ts-ignore
     inscricao.inscricaoJson = JSON.parse(inscricao.inscricaoJson)
 
