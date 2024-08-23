@@ -1,8 +1,9 @@
+import Church from './church.js'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import Church from './church.js'
+
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Perfil from './perfil.js'
 
