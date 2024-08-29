@@ -52,7 +52,7 @@ export default class MessagesController {
         })
       )
 
-      return true
+      return inscricoesAfetadas
     } catch (error) {
       throw error
     }
