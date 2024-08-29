@@ -12,6 +12,7 @@ const EventosController = () => import('#controllers/eventos_controller')
 const ChurchesController = () => import('#controllers/churches_controller')
 const InscricaosController = () => import('#controllers/inscricaos_controller')
 const PaymentsController = () => import('#controllers/payments_controller')
+const MessagesController = () => import('#controllers/messages_controller')
 import router from '@adonisjs/core/services/router'
 
 router
@@ -62,3 +63,9 @@ router
   .prefix('payment')
 
 router.get('/', ({ response }) => response.redirect('/admin'))
+
+router
+  .group(() => {
+    router.post('/sendText', [MessagesController, 'sendText'])
+  })
+  .prefix('message')
