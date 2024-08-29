@@ -1,6 +1,7 @@
 //@ts-nocheck
 import Inscricao from '#models/inscricao'
 import env from '#start/env'
+
 import type { HttpContext } from '@adonisjs/core/http'
 import axios from 'axios'
 const URL_COMUNICACAO_API = env.get('URL_COMUNICACAO_API')
@@ -14,7 +15,7 @@ export default class MessagesController {
 
       const inscricoes = await Inscricao.all()
 
-      let inscricoesAfetadas
+      let inscricoesAfetadas = []
       await Promise.all(
         inscricoes.map(async (inscricao) => {
           const dadosInscricao = JSON.parse(inscricao.inscricaoJson).camposInscricao
