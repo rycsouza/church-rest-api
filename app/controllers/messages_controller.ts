@@ -4,7 +4,10 @@ import env from '#start/env'
 
 import type { HttpContext } from '@adonisjs/core/http'
 import axios from 'axios'
+import { Sleep } from '../helpers/utils/index.js'
 const URL_COMUNICACAO_API = env.get('URL_COMUNICACAO_API')
+
+const TIME_TO_SLEEP = env.get('TIME_TO_SLEEP') ? Number.parseInt(env.get('TIME_TO_SLEEP')!) : 10000
 
 export default class MessagesController {
   async sendText({ request }: HttpContext) {
@@ -33,6 +36,8 @@ export default class MessagesController {
                 telefone: dadosInscricao.telefone,
                 tag: 'CIDADE',
               })
+
+              await Sleep(TIME_TO_SLEEP)
             }
 
             if (!dadosInscricao.camiseta) {
@@ -47,6 +52,8 @@ export default class MessagesController {
                 telefone: dadosInscricao.telefone,
                 tag: 'CAMISETA',
               })
+
+              await Sleep(TIME_TO_SLEEP)
             }
           }
         })
