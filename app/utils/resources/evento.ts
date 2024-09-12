@@ -1,5 +1,6 @@
-import { ActionContext } from 'adminjs'
+import { Components } from '../../admin/component_loader.js'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
+import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
 
 export default {
   modelName: 'Evento',
@@ -27,8 +28,6 @@ export default {
     imagem: {
       isVisible: {
         show: true,
-        new: true,
-        edit: true,
       },
     },
     formularioJson: {
@@ -108,6 +107,19 @@ export default {
     new: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Administrador' })
+      },
+    },
+    uploadImage: {
+      component: Components.UPLOAD,
+      actionType: 'record',
+      icon: 'Image',
+      handler: (_request: ActionRequest, _response: ActionResponse, context: ActionContext) => {
+        const { record, currentAdmin } = context
+
+        return { record: record?.toJSON(currentAdmin) }
+      },
+      isAccessible: (context: ActionContext) => {
+        return CheckAccess({ context, perfil: 'Server_Administrador' })
       },
     },
     bulkDelete: {
