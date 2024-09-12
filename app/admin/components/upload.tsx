@@ -43,10 +43,12 @@ export default (props: ActionProps) => {
 
       const response = await axios.post('/painel/arquivo/upload', formData)
 
+      //@ts-ignore
       alert(response.data.message)
       setUploading(false)
 
       setTimeout(() => {
+        //@ts-ignore
         window.location.href = `/admin/resources/${resource.id}`
       }, 1000)
     } catch (erro: any) {
