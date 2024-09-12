@@ -13,6 +13,7 @@ const ChurchesController = () => import('#controllers/churches_controller')
 const InscricaosController = () => import('#controllers/inscricaos_controller')
 const PaymentsController = () => import('#controllers/payments_controller')
 const MessagesController = () => import('#controllers/messages_controller')
+import ArquivosController from '#controllers/arquivos_controller'
 import router from '@adonisjs/core/services/router'
 
 router
@@ -69,3 +70,13 @@ router
     router.post('/sendText', [MessagesController, 'sendText'])
   })
   .prefix('message')
+
+router
+  .group(() => {
+    router
+      .group(() => {
+        router.post('/upload', [ArquivosController, 'upload'])
+      })
+      .prefix('arquivo')
+  })
+  .prefix('painel')
