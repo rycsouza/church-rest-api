@@ -162,6 +162,21 @@ const Constants = {
             dataCadastro: 'Data da Inscrição',
           },
         },
+        Eventos: {
+          actions: {
+            uploadImage: 'UPLOAD Imagem',
+          },
+        },
+        Igrejas: {
+          actions: {
+            uploadImage: 'UPLOAD Logo',
+          },
+        },
+        Usuarios: {
+          actions: {
+            uploadImage: 'UPLOAD Foto',
+          },
+        },
       },
     },
   },

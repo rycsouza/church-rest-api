@@ -29,5 +29,6 @@ yarn-error.log
 .adminjs/entry.js
 .wwebjs_cache
 .wwebjs_auth
+firebase.ts
 
 deploy.sh

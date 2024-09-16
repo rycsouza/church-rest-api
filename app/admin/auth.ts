@@ -1,8 +1,7 @@
-import { DefaultAuthProvider, DefaultAuthenticatePayload } from 'adminjs'
-
-import componentLoader from './component_loader.js'
-import Usuario from '#models/usuario'
+import { componentLoader } from './component_loader.js'
 import hash from '@adonisjs/core/services/hash'
+import Usuario from '#models/usuario'
+import { DefaultAuthenticatePayload, DefaultAuthProvider } from 'adminjs'
 
 /**
  * Your "authenticate" function. Depending on the auth provider used, the payload may be different.
