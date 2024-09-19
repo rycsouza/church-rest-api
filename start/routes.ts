@@ -13,7 +13,8 @@ const ChurchesController = () => import('#controllers/churches_controller')
 const InscricaosController = () => import('#controllers/inscricaos_controller')
 const PaymentsController = () => import('#controllers/payments_controller')
 const MessagesController = () => import('#controllers/messages_controller')
-import ArquivosController from '#controllers/arquivos_controller'
+const ArquivosController = () => import('#controllers/arquivos_controller')
+const FormulariosController = () => import('#controllers/formularios_controller')
 import router from '@adonisjs/core/services/router'
 
 router
@@ -26,12 +27,9 @@ router
 
 router
   .group(() => {
-    router.post('/criar', [EventosController, 'store'])
     router.get('/', [EventosController, 'index'])
-    router.get('/:id', [EventosController, 'show'])
-    router.get('/forms/:id', [EventosController, 'showForms'])
-    router.patch('/atualizar/:id', [EventosController, 'update'])
-    router.delete('/deletar/:id', [EventosController, 'delete'])
+    //router.get('/:id', [EventosController, 'show'])
+    //router.get('/forms/:id', [EventosController, 'showForms'])
   })
   .prefix('evento')
 
@@ -80,3 +78,9 @@ router
       .prefix('arquivo')
   })
   .prefix('painel')
+
+router
+  .group(() => {
+    router.get('/:tipo/:tag', [FormulariosController, 'getByTag'])
+  })
+  .prefix('v1')
