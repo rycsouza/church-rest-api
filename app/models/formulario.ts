@@ -21,7 +21,7 @@ export default class Formulario extends BaseModel {
   @belongsTo(() => Empresa, {
     foreignKey: 'empresa_id',
   })
-  declare Empresa: BelongsTo<typeof Empresa>
+  declare empresa: BelongsTo<typeof Empresa>
 
   @column()
   declare tipo: string
@@ -30,17 +30,17 @@ export default class Formulario extends BaseModel {
   declare tag: string
 
   @column()
-  declare config_json: string
+  declare config_json: JSON
 
   @column()
   declare ativo: boolean
 
   @beforeCreate()
   static async createTag(formulario: Formulario) {
-    await formulario.load('Empresa')
+    await formulario.load('empresa')
 
     let isTagAvailable = false
-    let tag = `${formulario.tipo}-${formulario.Empresa.nome}`
+    let tag = `${formulario.tipo}-${formulario.empresa.nome}`
     let attempt = 0
     const maxAttempts = 10
 
@@ -52,7 +52,7 @@ export default class Formulario extends BaseModel {
         isTagAvailable = true
       } else {
         const randomChar = Math.random().toString(36).substring(2, 7)
-        tag = `${formulario.tipo}-${formulario.Empresa.nome}-${randomChar}`
+        tag = `${formulario.tipo}-${formulario.empresa.nome}-${randomChar}`
       }
 
       attempt++

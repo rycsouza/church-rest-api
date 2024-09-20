@@ -12,7 +12,7 @@ export default class FormulariosController {
 
       if (!formulario) throw new Error('Não foi possível encontrar o formulário!')
 
-      await formulario.load('Empresa')
+      await formulario.load('empresa')
 
       return chooseReturn({ formulario })
     } catch (error) {
@@ -26,13 +26,13 @@ function chooseReturn({ formulario }) {
     evento: () => {
       const formularioConfigJson = formulario.config_json
 
-      const { campos, camposExtras } = formularioConfigJson.inscricaoForm
+      const { campos, camposExtras } = formularioConfigJson.formulario
 
       return {
         tipo: formulario.tipo,
         dados: {
-          empresa: formulario.Empresa.nome,
-          logo: formulario.Empresa.config_json.logo,
+          empresa: formulario.empresa.nome,
+          logo: formulario.empresa.config_json.logo,
           evento: formularioConfigJson.nome,
           imagem: formularioConfigJson.imagem,
           data: formularioConfigJson.data,
