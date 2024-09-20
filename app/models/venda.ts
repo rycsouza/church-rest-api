@@ -6,6 +6,8 @@ import Formulario from './formulario.js'
 import Situacao from './situacao.js'
 
 export default class Venda extends BaseModel {
+  static table = 'venda'
+
   @column({ isPrimary: true })
   declare id: number
 

@@ -7,24 +7,27 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class VendasController {
   async store({ request }: HttpContext) {
     try {
-      const { forma_pagamento, campos } = request.all()
+      const { campos } = request.all()
       const { tipo, tag } = request.params()
 
-      const formulario = await Formulario.find({ tipo, tag })
+      const formulario = await Formulario.findBy({ tipo, tag })
 
       if (!formulario)
         throw new Error('Falha ao realizar a Venda!', { cause: 'Formulário não encontrado!' })
 
       await formulario.load('empresa')
 
+      const empresaHasCheckout = formulario.empresa.config_json.checkout
       const venda = await Venda.create({
         empresa_id: formulario.empresa_id,
         formulario_id: formulario.id,
         valor: formulario.config_json.valor,
-        forma_pagamento,
-        gateway: formulario.empresa.config_json.gateway,
+        forma_pagamento: empresaHasCheckout ? null : 'N/A',
+        gateway: empresaHasCheckout ? null : 'N/A',
         detalhe_json: campos,
-        situacao_id: Constants.Situacao.Pendente,
+        situacao_id: empresaHasCheckout
+          ? Constants.Situacao.Pendente
+          : Constants.Situacao.Concluido,
       })
 
       if (!venda)

@@ -1,4 +1,4 @@
-import MercadoPagoService from '#services/mercado_pago_service'
+//import MercadoPagoService from '#services/mercado_pago_service'
 
 const Constants = {
   Situacao: {
@@ -15,9 +15,9 @@ const Constants = {
     Server_Administrador: 6,
   },
   FormaPagamento: {
-    checkout: async ({ evento, usuario, pId, externalReference }: any) => {
-      return await MercadoPagoService.checkout({ evento, usuario, pId, externalReference })
-    },
+    // checkout: async ({ evento, usuario, pId, externalReference }: any) => {
+    //   return await MercadoPagoService.checkout({ evento, usuario, pId, externalReference })
+    // },
   },
   Traducao: {
     ptBR: {

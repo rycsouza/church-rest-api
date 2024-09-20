@@ -49,6 +49,7 @@ function chooseReturn({ formulario }) {
           camposExtras,
         },
         condicaoMostrarCamposExtras: formularioConfigJson.condicaoMostrarCamposExtras,
+        goToCheckout: formulario.empresa.config_json.checkout,
       }
     },
     cardapio: () => {
