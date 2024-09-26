@@ -1,6 +1,6 @@
-import fs from 'fs'
 import Storage from '#config/firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import fs from 'fs'
 
 export default async ({ file, path = 'uploads' }: { file: any; path: string }): Promise<any> => {
   return new Promise((resolve, reject) => {

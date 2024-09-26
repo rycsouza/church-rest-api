@@ -3,19 +3,19 @@ import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
 
 export default {
-  modelName: 'Usuario',
-  id: 'Usuarios',
+  modelName: 'Empresa',
+  id: 'Empresas',
   titleProperty: 'nome',
   Navigation: {
-    icon: 'Users',
+    icon: 'Database',
   },
   Sort: {
     direction: 'asc',
     sortBy: 'id',
   },
   Properties: {
-    email: {
-      isVisible: { show: true, new: true, edit: true },
+    id: {
+      isVisible: { show: true, new: true, edit: true, list: true },
     },
     dataCadastro: {
       isVisible: { show: true },
@@ -23,33 +23,23 @@ export default {
     dataAtualizacao: {
       isVisible: { show: true },
     },
-    dataNascimento: {
-      isVisible: { show: true, new: true, edit: true },
+    contrato: {
+      isVisible: { show: true, new: true, edit: true, list: true },
     },
-    senha: {
-      isVisible: { new: true, edit: true },
-    },
-    avatar: {
-      isVisible: {
-        show: true,
-      },
-    },
-    empresaId: {
-      type: 'reference',
-      reference: 'Empresas',
-      isRequired: true,
-      isVisible: true,
-    },
-    perfilId: {
-      type: 'reference',
-      reference: 'Perfis',
-      isRequired: true,
-      isVisible: true,
+    configJson: {
+      isVisible: { show: true, new: true, edit: true, list: true },
     },
   },
   Actions: {
     list: {
       before: [BeforeRule],
+      after: (originalResponse: any) => {
+        originalResponse.records.forEach((record: any) => {
+          record.params.configJson = `checkout: ${JSON.stringify(JSON.parse(record.params.configJson).checkout)}`
+        })
+
+        return originalResponse
+      },
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, perfil: 'Server_Administrador' })
       },

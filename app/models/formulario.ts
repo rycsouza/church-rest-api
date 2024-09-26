@@ -10,16 +10,16 @@ export default class Formulario extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column.dateTime({ autoCreate: true })
-  declare data_cadastro: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'data_cadastro' })
+  declare dataCadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare data_atualizacao: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'data_atualizacao' })
+  declare dataAtualizacao: DateTime
 
-  @column()
-  declare empresa_id: number
+  @column({ columnName: 'empresa_id' })
+  declare empresaId: number
   @belongsTo(() => Empresa, {
-    foreignKey: 'empresa_id',
+    foreignKey: 'empresaId',
   })
   declare empresa: BelongsTo<typeof Empresa>
 
@@ -29,8 +29,12 @@ export default class Formulario extends BaseModel {
   @column()
   declare tag: string
 
-  @column()
-  declare config_json: JSON
+  @column({
+    columnName: 'config_json',
+    prepare: (valor) => (typeof valor === 'string' ? JSON.parse(valor) : valor),
+    consume: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
+  })
+  declare configJson: JSON
 
   @column()
   declare ativo: boolean

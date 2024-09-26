@@ -12,6 +12,8 @@ const FormulariosController = () => import('#controllers/formularios_controller'
 const VendasController = () => import('#controllers/vendas_controller')
 import router from '@adonisjs/core/services/router'
 
+router.get('/', ({ response }) => response.redirect('admin/login'))
+
 router
   .group(() => {
     router

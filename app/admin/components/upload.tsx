@@ -1,20 +1,30 @@
-import { Box, Button, DropZone, Icon } from '@adminjs/design-system'
+//@ts-nocheck
+import DynamicModal from './modal.js'
+import { Box, Button, DropZone, Icon, Input } from '@adminjs/design-system'
 import { ActionProps } from 'adminjs'
 import axios from 'axios'
-/* eslint-disable unicorn/filename-case */
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 const camposImagensResources = {
   Usuarios: 'avatar',
-  Eventos: 'imagem',
-  Igrejas: 'logo',
+  Formularios: 'configJson',
+  Empresas: 'configJson',
 }
+
+const resourcesWithImageCollumn = ['Usuarios']
 
 export default (props: ActionProps) => {
   const [file, setFile] = useState(null)
   const [uploading, setUploading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string>(
+    'Erro ao processar o envio do arquivo. Por favor, entre em contato com o suporte.'
+  )
   const { record, resource } = props
+  const inputRef = useRef(null) // Usando useRef para acessar o input
+  const [showModal, setShowModal] = useState(false)
+  const [modalTitle, setModalTitle] = useState('Envio de Arquivo')
+  const [modalMessage, setModalMessage] = useState(null)
+  const [modalVariant, setModalVariant] = useState(null)
 
   const handleDrop = (files: any) => {
     setFile(files[0])
@@ -37,29 +47,33 @@ export default (props: ActionProps) => {
 
       formData.append('id', record?.id)
       formData.append('path', resource.id)
-      //@ts-ignore
       formData.append('attribute', camposImagensResources[resource.id])
       formData.append('file', file)
 
+      const imageDevice = inputRef.current ? inputRef.current.value : null // Acessa o valor do input
+      if (imageDevice) formData.append('imageDevice', imageDevice)
+
+      if (!resourcesWithImageCollumn.includes(resource.id) && !imageDevice)
+        throw new Error('É obrigatório preencher o INPUT')
+
       const response = await axios.post('/painel/arquivo/upload', formData)
 
-      //@ts-ignore
-      alert(response.data.message)
-      setUploading(false)
+      //Montando modal de successo
+      setModalMessage(response.data.message)
+      setModalVariant('success')
+      setShowModal(true)
 
-      setTimeout(() => {
-        //@ts-ignore
-        window.location.href = `/admin/resources/${resource.id}`
-      }, 1000)
-    } catch (erro: any) {
+      setUploading(false)
+    } catch (erro) {
       const { message } = erro
       if (message) setErrorMessage(message)
-      else
-        setErrorMessage(
-          'Erro ao processar o envio do arquivo. Por favor, entre em contato com o suporte.'
-        )
 
       setUploading(false)
+
+      //Montando modal de erro
+      setModalMessage(errorMessage)
+      setModalVariant('danger')
+      setShowModal(true)
     }
   }
 
@@ -73,7 +87,13 @@ export default (props: ActionProps) => {
         height: '60vh',
       }}
     >
-      <h3 style={{ marginBottom: 20, textAlign: 'center', fontSize: 16 }}>Upload de Arquivo</h3>
+      {!resourcesWithImageCollumn.includes(resource.id) && (
+        <Input id="inputDevice" type="text" variant="sm" width={150} ref={inputRef} />
+      )}
+
+      <h3 style={{ marginBottom: 20, marginTop: 20, textAlign: 'center', fontSize: 16 }}>
+        Upload de Arquivo
+      </h3>
       <DropZone
         onChange={handleDrop}
         multiple={false}
@@ -81,8 +101,6 @@ export default (props: ActionProps) => {
           placeholder: 'Selecione ou arraste o arquivo aqui',
         }}
       />
-
-      {errorMessage && <Box style={{ color: 'red', marginTop: 20 }}>{errorMessage}</Box>}
 
       <Button
         onClick={handleSubmit}
@@ -100,6 +118,19 @@ export default (props: ActionProps) => {
         <Icon icon="Send" />
         {uploading ? 'Enviando...' : 'Enviar'}
       </Button>
+
+      <DynamicModal
+        title={modalTitle}
+        message={modalMessage}
+        variant={modalVariant}
+        showModal={showModal}
+        onClose={() => {
+          setShowModal(false)
+          if (modalVariant === 'success') {
+            window.location.href = `/admin/resources/${resource.id}`
+          }
+        }}
+      />
     </Box>
   )
 }

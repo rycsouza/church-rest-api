@@ -1,6 +1,6 @@
 import { componentLoader } from './component_loader.js'
 import hash from '@adonisjs/core/services/hash'
-//import Usuario from '#models/usuario'
+import Usuario from '#models/usuario'
 import { DefaultAuthenticatePayload, DefaultAuthProvider } from 'adminjs'
 
 /**
@@ -12,14 +12,14 @@ import { DefaultAuthenticatePayload, DefaultAuthProvider } from 'adminjs'
  * The default implementation below will let any in, so make sure to update it.
  */
 const authenticate = async ({ email, password }: DefaultAuthenticatePayload) => {
-  // const usuario = await Usuario.findBy({ email })
+   const usuario = await Usuario.findBy({ email })
 
-  // if (!usuario?.senha || !(await hash.verify(usuario.senha, password))) return null
+   if (!usuario?.senha || !(await hash.verify(usuario.senha, password))) return null
 
   return {
     email,
-    //usuario,
-    //avatarUrl: usuario.avatar || '',
+    usuario,
+    avatarUrl: usuario.avatar || '',
   }
 }
 

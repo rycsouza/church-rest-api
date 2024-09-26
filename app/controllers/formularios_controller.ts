@@ -21,18 +21,16 @@ export default class FormulariosController {
   }
 }
 
-function chooseReturn({ formulario }) {
+function chooseReturn({ formulario }: { formulario: Formulario }) {
   const retornos = {
     evento: () => {
-      const formularioConfigJson = formulario.config_json
-
-      const { campos, camposExtras } = formularioConfigJson.formulario
+      const formularioConfigJson = JSON.parse(formulario.configJson)
 
       return {
         tipo: formulario.tipo,
         dados: {
           empresa: formulario.empresa.nome,
-          logo: formulario.empresa.config_json.logo,
+          logo: JSON.parse(formulario.empresa.configJson).logo,
           evento: formularioConfigJson.nome,
           imagem: formularioConfigJson.imagem,
           data: formularioConfigJson.data,
@@ -44,12 +42,9 @@ function chooseReturn({ formulario }) {
           valor: formularioConfigJson.valor,
           parcelamento: formularioConfigJson.parcelamento,
         },
-        formulario: {
-          campos,
-          camposExtras,
-        },
+        formulario: formularioConfigJson.formulario,
         condicaoMostrarCamposExtras: formularioConfigJson.condicaoMostrarCamposExtras,
-        goToCheckout: formulario.empresa.config_json.checkout,
+        goToCheckout: JSON.parse(formulario.empresa.configJson).checkout,
       }
     },
     cardapio: () => {

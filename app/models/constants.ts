@@ -121,21 +121,15 @@ const Constants = {
         createFirstRecord: 'Criar Primeiro Registro',
       },
       properties: {
-        cpf: 'CPF',
-        uf: 'Estado',
+        id: 'Número',
         situacaoId: 'Situação do Pagamento',
-        eventoId: 'Evento',
+        formularioId: 'Formulário',
         descricao: 'Descrição',
-        churchId: 'Organização',
-        dataEvento: 'Data do Evento',
+        empresaId: 'Empresa',
         perfilId: 'Nível de Acesso',
-        inscricaoJson: 'Detalhes da Inscrição',
-        mercadoPagoId: 'Referência do Pagamento',
-        urlWhatsapp: 'Link do WhatsApp',
         length: 'Tamanho',
         from: 'De',
         to: 'Até',
-        formularioJson: 'Formulário JSON',
       },
       components: {
         Login: {
@@ -157,24 +151,33 @@ const Constants = {
       },
       pages: {},
       resources: {
-        Inscricoes: {
-          properties: {
-            dataCadastro: 'Data da Inscrição',
-          },
-        },
-        Eventos: {
+        Formularios: {
           actions: {
             uploadImage: 'UPLOAD Imagem',
           },
+          properties: {
+            configJson: 'Configurações do Formulário',
+          },
         },
-        Igrejas: {
+        Empresas: {
           actions: {
-            uploadImage: 'UPLOAD Logo',
+            uploadImage: 'UPLOAD Imagem',
+          },
+          properties: {
+            configJson: 'Configurações da Empresa',
+          },
+        },
+        Vendas: {
+          properties: {
+            detalheJson: 'Informações da Venda',
           },
         },
         Usuarios: {
           actions: {
             uploadImage: 'UPLOAD Foto',
+          },
+          properties: {
+            cpf: 'CPF',
           },
         },
       },

@@ -11,42 +11,46 @@ export default class Venda extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column.dateTime({ autoCreate: true })
-  declare data_cadastro: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'data_cadastro' })
+  declare dataCadastro: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare data_atualizacao: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'data_atualizacao' })
+  declare dataAtualizacao: DateTime
 
-  @column()
-  declare empresa_id: number
+  @column({ columnName: 'empresa_id' })
+  declare empresaId: number
   @belongsTo(() => Empresa, {
-    foreignKey: 'empresa_id',
+    foreignKey: 'empresaId',
   })
   declare empresa: BelongsTo<typeof Empresa>
 
-  @column()
-  declare formulario_id: number
+  @column({ columnName: 'formulario_id' })
+  declare formularioId: number
   @belongsTo(() => Formulario, {
-    foreignKey: 'formulario_id',
+    foreignKey: 'formularioId',
   })
   declare formulario: BelongsTo<typeof Formulario>
 
   @column()
   declare valor: number
 
-  @column()
-  declare forma_pagamento: string
+  @column({ columnName: 'forma_pagamento' })
+  declare formaPagamento: string
 
   @column()
   declare gateway: string
 
-  @column()
-  declare detalhe_json: JSON
+  @column({
+    columnName: 'detalhe_json',
+    prepare: (valor) => (typeof valor === 'string' ? JSON.parse(valor) : valor),
+    consume: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
+  })
+  declare detalheJson: JSON
 
-  @column()
-  declare situacao_id: number
+  @column({ columnName: 'situacao_id' })
+  declare situacaoId: number
   @belongsTo(() => Situacao, {
-    foreignKey: 'situacao_id',
+    foreignKey: 'situacaoId',
   })
   declare situacao: BelongsTo<typeof Situacao>
 }

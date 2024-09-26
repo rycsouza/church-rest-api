@@ -1,5 +1,4 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
-import { DateTime } from 'luxon'
 
 export default class Empresa extends BaseModel {
   static table = 'empresa'
@@ -7,11 +6,15 @@ export default class Empresa extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column.dateTime({ autoCreate: true })
-  declare data_cadastro: DateTime
+  @column({
+    columnName: 'data_cadastro',
+  })
+  declare dataCadastro: string
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare data_atualizacao: DateTime
+  @column({
+    columnName: 'data_atualizacao',
+  })
+  declare dataAtualizacao: string
 
   @column()
   declare nome: string
@@ -19,6 +22,10 @@ export default class Empresa extends BaseModel {
   @column()
   declare contrato: string
 
-  @column()
-  declare config_json: JSON
+  @column({
+    columnName: 'config_json',
+    prepare: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
+    consume: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
+  })
+  declare configJson: JSON
 }

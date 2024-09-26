@@ -6,8 +6,7 @@ export default {
   id: 'Perfis',
   titleProperty: 'descricao',
   Navigation: {
-    name: 'Administracao',
-    icon: 'Users',
+    icon: 'Smile',
   },
   Sort: {
     direction: 'asc',
