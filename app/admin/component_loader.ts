@@ -8,6 +8,7 @@ const bundle = (name: string, path: string) => {
 
 const Components = {
   UPLOAD: bundle('UPLOAD', 'upload'),
+  DASHBOARD: bundle('DASHBOARD', 'dashboard'),
 }
 
 export { componentLoader, Components }

@@ -21,6 +21,16 @@ router
         router.post('/upload', [ArquivosController, 'upload'])
       })
       .prefix('arquivo')
+    router.get('resources', async () => {
+      const resources = (await import('../app/utils/resouces_instance.js')).default
+
+      const resourcesIds: { id: string }[] | null = []
+      resources?.forEach((resouce) => {
+        resourcesIds.push({ id: resouce.options.id })
+      })
+
+      return { resources: resourcesIds?.sort((a, b) => a.id.localeCompare(b.id)) }
+    })
   })
   .prefix('painel')
 

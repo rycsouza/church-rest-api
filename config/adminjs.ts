@@ -1,5 +1,5 @@
 import authProvider from '../app/admin/auth.js'
-import { componentLoader } from '../app/admin/component_loader.js'
+import { componentLoader, Components } from '../app/admin/component_loader.js'
 import resources from '../app/utils/resouces_instance.js'
 import { AdminJSProviderConfig } from '@adminjs/adonis'
 import { dark, light, noSidebar } from '@adminjs/themes'
@@ -15,6 +15,9 @@ const adminjsConfig: AdminJSProviderConfig = {
     rootPath: '/admin',
     loginPath: '/admin/login',
     logoutPath: '/admin/logout',
+    dashboard: {
+      component: Components.DASHBOARD,
+    },
     componentLoader,
     resources: resources,
     pages: {},
