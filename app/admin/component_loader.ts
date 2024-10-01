@@ -9,6 +9,7 @@ const bundle = (name: string, path: string) => {
 const Components = {
   UPLOAD: bundle('UPLOAD', 'upload'),
   DASHBOARD: bundle('DASHBOARD', 'dashboard'),
+  DOWNLOAD_CSV: bundle('DOWNLOAD_CSV', 'download_csv'),
 }
 
 export { componentLoader, Components }

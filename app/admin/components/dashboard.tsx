@@ -10,7 +10,7 @@ export default () => {
   const userPermissoes = currentAdmin.permissoes
 
   useEffect(() => {
-    axios.get('painel/resources').then((response) => {
+    axios.get('/painel/resources').then((response) => {
       setResources(response.data.resources)
     })
   }, [])

@@ -23,6 +23,7 @@ router
       })
       .prefix('arquivo')
     router.get('resources', [PainelsController, 'getResources'])
+    router.get('csv/:id', [PainelsController, 'downloadCSV']).prefix('download')
   })
   .prefix('painel')
 

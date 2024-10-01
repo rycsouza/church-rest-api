@@ -1,6 +1,7 @@
-import { ActionContext } from 'adminjs'
+import { Components } from '../../admin/component_loader.js'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 import Constants from '#models/constants'
+import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
 
 export default {
   modelName: 'Venda',
@@ -92,6 +93,18 @@ export default {
     bulkDelete: {
       isAccessible: (context: ActionContext) => {
         return CheckAccess({ context, code: Constants.Permissoes.Vendas.bulkDelete })
+      },
+    },
+    downloadCSV: {
+      component: Components.DOWNLOAD_CSV,
+      icon: 'DownloadCloud',
+      handler: (_request: ActionRequest, _response: ActionResponse, context: ActionContext) => {
+        const { record, currentAdmin } = context
+
+        return { record: record?.toJSON(currentAdmin) }
+      },
+      isAcessible: (context: ActionContext) => {
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.list })
       },
     },
   },
