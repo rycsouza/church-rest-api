@@ -41,7 +41,7 @@ export default class PainelsController {
 
       const keys: any[] = []
       //@ts-ignore
-      Object.keys(JSON.parse(vendasFormatadas[0])).forEach((key) => keys.push(key))
+      Object.keys(vendasFormatadas[0]).forEach((key) => keys.push(key))
 
       const csvParser = new Parser({ fields: keys })
       const csv = csvParser.parse(vendasFormatadas)

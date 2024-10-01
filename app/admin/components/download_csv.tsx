@@ -1,9 +1,9 @@
 //@ts-nocheck
+import DynamicModal from './modal.js'
 import { Box } from '@adminjs/design-system'
 import { ActionProps, useCurrentAdmin } from 'adminjs'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import DynamicModal from './modal.js'
 
 export default (props: ActionProps) => {
   const [showModal, setShowModal] = useState(false)
@@ -16,16 +16,16 @@ export default (props: ActionProps) => {
   useEffect(() => {
     axios
       .get(`/painel/download/csv/${currentAdmin.empresaId}`, {
-        responseType: 'blob'
+        responseType: 'blob',
       })
       .then((response) => {
-        const blob = new Blob([response.data], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
+        const blob = new Blob([response.data], { type: 'text/csv' })
+        const url = window.URL.createObjectURL(blob)
 
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'vendas.csv');
-        link.click(); // Disparar o clique no link automaticamente
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'vendas.csv')
+        link.click() // Disparar o clique no link automaticamente
 
         window.location.href = `/admin/resources/${resource.id}`
       })
@@ -46,9 +46,7 @@ export default (props: ActionProps) => {
         showModal={showModal}
         onClose={() => {
           setShowModal(false)
-          if (modalVariant === 'success') {
-            window.location.href = `/admin/resources/${resource.id}`
-          }
+          window.location.href = `/admin/resources/${resource.id}`
         }}
       />
     </Box>
