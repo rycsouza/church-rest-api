@@ -1,9 +1,11 @@
 import { ActionContext } from 'adminjs'
 import { CheckAccess } from '../../helpers/resources/index.js'
+import Constants from '#models/constants'
 
 export default {
   modelName: 'Situacao',
   id: 'Situacoes',
+  label: 'Situações',
   titleProperty: 'descricao',
   Navigation: {
     icon: 'Sliders',
@@ -23,32 +25,32 @@ export default {
   Actions: {
     list: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.list })
       },
     },
     show: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Usuario' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.show })
       },
     },
     edit: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.edit })
       },
     },
     delete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.delete })
       },
     },
     new: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.new })
       },
     },
     bulkDelete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Situacoes.bulkDelete })
       },
     },
   },

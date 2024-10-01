@@ -10,6 +10,7 @@
 const ArquivosController = () => import('#controllers/arquivos_controller')
 const FormulariosController = () => import('#controllers/formularios_controller')
 const VendasController = () => import('#controllers/vendas_controller')
+const PainelsController = () => import('#controllers/painels_controller')
 import router from '@adonisjs/core/services/router'
 
 router.get('/', ({ response }) => response.redirect('admin/login'))
@@ -21,16 +22,7 @@ router
         router.post('/upload', [ArquivosController, 'upload'])
       })
       .prefix('arquivo')
-    router.get('resources', async () => {
-      const resources = (await import('../app/utils/resouces_instance.js')).default
-
-      const resourcesIds: { id: string }[] | null = []
-      resources?.forEach((resouce) => {
-        resourcesIds.push({ id: resouce.options.id })
-      })
-
-      return { resources: resourcesIds?.sort((a, b) => a.id.localeCompare(b.id)) }
-    })
+    router.get('resources', [PainelsController, 'getResources'])
   })
   .prefix('painel')
 

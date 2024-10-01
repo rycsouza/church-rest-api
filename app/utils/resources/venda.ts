@@ -1,9 +1,11 @@
 import { ActionContext } from 'adminjs'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
+import Constants from '#models/constants'
 
 export default {
   modelName: 'Venda',
   id: 'Vendas',
+  label: 'Vendas',
   titleProperty: 'detalheJson.nome',
   Navigation: {
     icon: 'ShoppingBag',
@@ -64,32 +66,32 @@ export default {
         return originalResponse
       },
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.list })
       },
     },
     show: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.show })
       },
     },
     edit: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.edit })
       },
     },
     delete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.delete })
       },
     },
     new: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.new })
       },
     },
     bulkDelete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Vendas.bulkDelete })
       },
     },
   },

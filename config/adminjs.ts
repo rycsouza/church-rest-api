@@ -20,7 +20,6 @@ const adminjsConfig: AdminJSProviderConfig = {
     },
     componentLoader,
     resources: resources,
-    pages: {},
     locale: {
       availableLanguages: ['ptBR'],
       language: 'ptBR',

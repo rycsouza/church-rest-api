@@ -19,6 +19,56 @@ const Constants = {
     //   return await MercadoPagoService.checkout({ evento, usuario, pId, externalReference })
     // },
   },
+  Permissoes: {
+    Empresas: {
+      new: '00.01',
+      list: '00.02',
+      show: '00.03',
+      edit: '00.04',
+      delete: '00.05',
+      bulkDelete: '00.06'
+    },
+    Formularios: {
+      new: '00.07',
+      list: '00.08',
+      show: '00.09',
+      edit: '00.10',
+      delete: '00.11',
+      bulkDelete: '00.12'
+    },
+    Perfis: {
+      new: '00.13',
+      list: '00.14',
+      show: '00.15',
+      edit: '00.16',
+      delete: '00.17',
+      bulkDelete: '00.18'
+    },
+    Situacoes: {
+      new: '00.19',
+      list: '00.20',
+      show: '00.21',
+      edit: '00.22',
+      delete: '00.23',
+      bulkDelete: '00.24'
+    },
+    Usuarios: {
+      new: '00.25',
+      list: '00.26',
+      show: '00.27',
+      edit: '00.28',
+      delete: '00.29',
+      bulkDelete: '00.30'
+    },
+    Vendas: {
+      new: '00.31',
+      list: '00.32',
+      show: '00.33',
+      edit: '00.34',
+      delete: '00.35',
+      bulkDelete: '00.36'
+    }
+  },
   Traducao: {
     ptBR: {
       actions: {

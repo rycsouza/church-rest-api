@@ -1,3 +1,4 @@
+import Constants from '#models/constants'
 import { Components } from '../../admin/component_loader.js'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
@@ -5,6 +6,7 @@ import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
 export default {
   modelName: 'Formulario',
   id: 'Formularios',
+  label: 'Formulários',
   titleProperty: 'tag',
   Navigation: {
     icon: 'Layout',
@@ -53,27 +55,27 @@ export default {
         return originalResponse
       },
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.list })
       },
     },
     show: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.show })
       },
     },
     edit: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.edit })
       },
     },
     delete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.delete })
       },
     },
     new: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.new })
       },
     },
     uploadImage: {
@@ -86,12 +88,12 @@ export default {
         return { record: record?.toJSON(currentAdmin) }
       },
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.new })
       },
     },
     bulkDelete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Formularios.bulkDelete })
       },
     },
   },

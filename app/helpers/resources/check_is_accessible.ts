@@ -1,9 +1,7 @@
-import Constants from '#models/constants'
 import { ActionContext } from 'adminjs'
 
-export default ({ context, perfil }: { context: ActionContext; perfil: string }) => {
-  const usuario = context.currentAdmin?.usuario
+export default ({ context, code }: { context: ActionContext; code: string }) => {
+  const usuario = context.currentAdmin!
 
-  //@ts-ignorew
-  return usuario.perfilId >= Constants.Perfis[perfil]
+  return usuario.permissoes.find((value: any) => value.code === code)
 }

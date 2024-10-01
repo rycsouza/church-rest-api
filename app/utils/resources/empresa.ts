@@ -1,3 +1,4 @@
+import Constants from '#models/constants'
 import { Components } from '../../admin/component_loader.js'
 import { BeforeRule, CheckAccess } from '../../helpers/resources/index.js'
 import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
@@ -5,6 +6,7 @@ import { ActionContext, ActionRequest, ActionResponse } from 'adminjs'
 export default {
   modelName: 'Empresa',
   id: 'Empresas',
+  label: 'Empresas',
   titleProperty: 'nome',
   Navigation: {
     icon: 'Database',
@@ -41,27 +43,27 @@ export default {
         return originalResponse
       },
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.list })
       },
     },
     show: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.show })
       },
     },
     edit: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.edit })
       },
     },
     delete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.delete })
       },
     },
     new: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.new })
       },
     },
     uploadImage: {
@@ -74,12 +76,12 @@ export default {
         return { record: record?.toJSON(currentAdmin) }
       },
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.new })
       },
     },
     bulkDelete: {
       isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Server_Administrador' })
+        return CheckAccess({ context, code: Constants.Permissoes.Empresas.bulkDelete })
       },
     },
   },
