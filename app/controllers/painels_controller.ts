@@ -1,7 +1,7 @@
+import { HttpContext } from '@adonisjs/core/http'
 import Constants from '#models/constants'
 import Venda from '#models/venda'
-import { HttpContext } from '@adonisjs/core/http'
-import {Parser} from 'json2csv'
+import { Parser } from 'json2csv'
 
 export default class PainelsController {
   async getResources() {
@@ -32,6 +32,8 @@ export default class PainelsController {
           const vendaDetalhe = JSON.parse(venda.detalheJson)
           vendasFormatadas.push({
             ...vendaDetalhe,
+            valor: venda.valor,
+            formaPagamento: venda.formaPagamento,
             status: venda.situacao.descricao,
           })
         })
@@ -39,8 +41,7 @@ export default class PainelsController {
 
       const keys: any[] = []
       //@ts-ignore
-      Object.keys(JSON.parse(vendas[0].detalheJson)).forEach((key) => keys.push(key))
-      keys.push('status')
+      Object.keys(JSON.parse(vendasFormatadas[0])).forEach((key) => keys.push(key))
 
       const csvParser = new Parser({ fields: keys })
       const csv = csvParser.parse(vendasFormatadas)
