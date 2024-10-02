@@ -31,7 +31,7 @@ export default class Formulario extends BaseModel {
 
   @column({
     columnName: 'config_json',
-    prepare: (valor) => (typeof valor === 'string' ? JSON.parse(valor) : valor),
+    prepare: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
     consume: (valor) => (typeof valor === 'object' ? JSON.stringify(valor) : valor),
   })
   declare configJson: JSON
