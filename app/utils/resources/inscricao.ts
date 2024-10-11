@@ -132,71 +132,71 @@ export default {
         return CheckAccess({ context, perfil: 'Obreiro' })
       },
     },
-    addToGroup: {
-      actionType: 'record',
-      component: false,
-      icon: 'UserPlus',
-      handler: async (
-        _request: ActionRequest,
-        _response: ActionResponse,
-        context: ActionContext
-      ) => {
-        const { record, currentAdmin } = context
-        const camposInscricao = JSON.parse(record?.params.inscricaoJson).camposInscricao
-        const telefone = camposInscricao.telefone
+    // addToGroup: {
+    //   actionType: 'record',
+    //   component: false,
+    //   icon: 'UserPlus',
+    //   handler: async (
+    //     _request: ActionRequest,
+    //     _response: ActionResponse,
+    //     context: ActionContext
+    //   ) => {
+    //     const { record, currentAdmin } = context
+    //     const camposInscricao = JSON.parse(record?.params.inscricaoJson).camposInscricao
+    //     const telefone = camposInscricao.telefone
 
-        await axios.post(`${URL_COMUNICACAO_API}/whatsapp/participants/`, {
-          nomeGrupo: record?.populated?.eventoId?.params?.nomeGrupo,
-          telefones: [telefone],
-        })
+    //     await axios.post(`${URL_COMUNICACAO_API}/whatsapp/participants/`, {
+    //       nomeGrupo: record?.populated?.eventoId?.params?.nomeGrupo,
+    //       telefones: [telefone],
+    //     })
 
-        return {
-          record: record!.toJSON(currentAdmin),
-          msg: `${camposInscricao.nome} adicionado ao grupo!`,
-        }
-      },
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
-    },
-    addAllToGroup: {
-      actionType: 'resource',
-      component: false,
-      guard: 'Você tem certeza que quer adicionar todos os inscritos ao grupo do evento?',
-      handler: async (
-        _request: ActionRequest,
-        response: ActionResponse,
-        _context: ActionContext
-      ) => {
-        const records = await Inscricao.all()
+    //     return {
+    //       record: record!.toJSON(currentAdmin),
+    //       msg: `${camposInscricao.nome} adicionado ao grupo!`,
+    //     }
+    //   },
+    //   isAccessible: (context: ActionContext) => {
+    //     return CheckAccess({ context, perfil: 'Obreiro' })
+    //   },
+    // },
+    // addAllToGroup: {
+    //   actionType: 'resource',
+    //   component: false,
+    //   guard: 'Você tem certeza que quer adicionar todos os inscritos ao grupo do evento?',
+    //   handler: async (
+    //     _request: ActionRequest,
+    //     response: ActionResponse,
+    //     _context: ActionContext
+    //   ) => {
+    //     const records = await Inscricao.all()
 
-        const telefones: any = []
-        const nomes: any = []
-        records.forEach((record) => {
-          const camposInscricao = JSON.parse(record.inscricaoJson).camposInscricao
-          telefones.push(camposInscricao.telefone)
-          nomes.push(camposInscricao.nome)
-        })
+    //     const telefones: any = []
+    //     const nomes: any = []
+    //     records.forEach((record) => {
+    //       const camposInscricao = JSON.parse(record.inscricaoJson).camposInscricao
+    //       telefones.push(camposInscricao.telefone)
+    //       nomes.push(camposInscricao.nome)
+    //     })
 
-        await records[0].load('evento')
+    //     await records[0].load('evento')
 
-        if (records[0].evento.nomeGrupo && telefones.length) {
-          await axios.post(`${URL_COMUNICACAO_API}/whatsapp/participants/`, {
-            nomeGrupo: records[0].evento.nomeGrupo,
-            telefones,
-          })
-        }
+    //     if (records[0].evento.nomeGrupo && telefones.length) {
+    //       await axios.post(`${URL_COMUNICACAO_API}/whatsapp/participants/`, {
+    //         nomeGrupo: records[0].evento.nomeGrupo,
+    //         telefones,
+    //       })
+    //     }
 
-        return {
-          records: records,
-          redirectUrl: '/admin/',
-          msg: `${nomes} adicionados ao grupo!`,
-        }
-      },
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
-    },
+    //     return {
+    //       records: records,
+    //       redirectUrl: '/admin/',
+    //       msg: `${nomes} adicionados ao grupo!`,
+    //     }
+    //   },
+    //   isAccessible: (context: ActionContext) => {
+    //     return CheckAccess({ context, perfil: 'Obreiro' })
+    //   },
+    // },
     bulkDelete: {
       isAccessible: false,
     },
