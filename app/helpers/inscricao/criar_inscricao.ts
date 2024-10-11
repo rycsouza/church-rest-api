@@ -39,17 +39,17 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       }
     }
 
-    const { payment } = await CriarPagamento({
-      inscricaoId: inscricao.id,
-      eventoId: evento.id,
-      formaPagamento: 'checkout',
-      usuario: {
-        ...camposInscricao,
-      },
-      externalReference: inscricao.id.toString(),
-    })
+   // const { payment } = await CriarPagamento({
+   //   inscricaoId: inscricao.id,
+     // eventoId: evento.id,
+     // formaPagamento: 'checkout',
+     // usuario: {
+      //  ...camposInscricao,
+     // },
+     // externalReference: inscricao.id.toString(),
+    //})
 
-    return { payment, whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao, inscricao }
+    return { whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao, inscricao }
   } catch (error) {
     throw error
   }

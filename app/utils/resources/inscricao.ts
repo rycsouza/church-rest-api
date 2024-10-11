@@ -128,9 +128,7 @@ export default {
       },
     },
     new: {
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
+      isAccessible: false,
     },
     addToGroup: {
       actionType: 'record',
@@ -155,9 +153,7 @@ export default {
           msg: `${camposInscricao.nome} adicionado ao grupo!`,
         }
       },
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
+      isAccessible: false,
     },
     addAllToGroup: {
       actionType: 'resource',
@@ -193,9 +189,7 @@ export default {
           msg: `${nomes} adicionados ao grupo!`,
         }
       },
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
+      isAccessible: false,
     },
     bulkDelete: {
       isAccessible: false,

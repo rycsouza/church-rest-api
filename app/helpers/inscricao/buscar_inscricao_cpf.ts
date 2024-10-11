@@ -1,5 +1,5 @@
 import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarPagamento } from '../payment/index.js'
+//import { CriarPagamento } from '../payment/index.js'
 import Inscricao from '#models/inscricao'
 import Situacao from '#models/situacao'
 
@@ -24,24 +24,25 @@ export default async ({ cpf, eventoId }: any) => {
         // eslint-disable-next-line unicorn/no-await-expression-member
         const status = (await Situacao.findBy('id', inscricao.situacaoId))?.descricao
 
-        const { payment } = await CriarPagamento({
-          inscricaoId: inscricao.id,
-          eventoId: evento.id,
-          formaPagamento: 'checkout',
-          usuario: {
-            cpf: inscricaoJSON.camposInscricao.cpf,
-            nome: inscricaoJSON.camposInscricao.nome,
-            email: inscricaoJSON.camposInscricao.email,
-            telefone: inscricaoJSON.camposInscricao.telefone,
-          },
-          externalReference: inscricao.id.toString(),
-        })
+//        const { payment } = await CriarPagamento({
+ //         inscricaoId: inscricao.id,
+  //        eventoId: evento.id,
+    //      formaPagamento: 'checkout',
+      //    usuario: {
+        //    cpf: inscricaoJSON.camposInscricao.cpf,
+         //   nome: inscricaoJSON.camposInscricao.nome,
+          //  email: inscricaoJSON.camposInscricao.email,
+           // telefone: inscricaoJSON.camposInscricao.telefone,
+         // },
+         // externalReference: inscricao.id.toString(),
+       // })
+        if (!inscricaoJSON.camposResponsaveis.cpf) delete inscricaoJSON.camposResponsaveis
 
         inscricao.inscricaoJson = inscricaoJSON
-        inscricoesFormatadas.push({
+  	inscricoesFormatadas.push({
           status,
           whatsapp: evento.urlWhatsapp,
-          url_checkout: payment?.url,
+          url_checkout: null,
           inscricao,
         })
       })

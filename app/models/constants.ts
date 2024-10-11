@@ -123,7 +123,7 @@ const Constants = {
       properties: {
         cpf: 'CPF',
         uf: 'Estado',
-        situacaoId: 'Situação do Pagamento',
+        situacaoId: 'Situação da Inscrição',
         eventoId: 'Evento',
         descricao: 'Descrição',
         churchId: 'Organização',

@@ -85,9 +85,7 @@ export default {
   Actions: {
     list: {
       before: [BeforeRule],
-      isAccessible: (context: ActionContext) => {
-        return CheckAccess({ context, perfil: 'Obreiro' })
-      },
+      isAccessible: false,
     },
     show: {
       isAccessible: (context: ActionContext) => {
