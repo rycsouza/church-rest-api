@@ -1,9 +1,7 @@
 //@ts-nocheck
+import { BuscarEventoIdHelper } from '../evento/index.js'
 import Constants from '#models/constants'
 import Inscricao from '#models/inscricao'
-import { BuscarEventoIdHelper } from '../evento/index.js'
-import { CriarPagamento } from '../payment/index.js'
-import { EnviarComprovanteDeInscricao } from './index.js'
 
 interface InscricaoPayLoad {
   eventoId: number
@@ -30,7 +28,7 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       inscricao.situacaoId = Constants.Situacao.Concluido
       await inscricao.save()
 
-      await EnviarComprovanteDeInscricao({ inscricao })
+      //await EnviarComprovanteDeInscricao({ inscricao })
 
       return {
         whatsapp: evento.urlWhatsapp,
@@ -39,17 +37,17 @@ export default async (inscricaoPayLoad: InscricaoPayLoad) => {
       }
     }
 
-    const { payment } = await CriarPagamento({
-      inscricaoId: inscricao.id,
-      eventoId: evento.id,
-      formaPagamento: 'checkout',
-      usuario: {
-        ...camposInscricao,
-      },
-      externalReference: inscricao.id.toString(),
-    })
+    // const { payment } = await CriarPagamento({
+    //   inscricaoId: inscricao.id,
+    //   eventoId: evento.id,
+    //   formaPagamento: 'checkout',
+    //   usuario: {
+    //     ...camposInscricao,
+    //   },
+    //   externalReference: inscricao.id.toString(),
+    // })
 
-    return { payment, whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao, inscricao }
+    return { whatsapp: evento.urlWhatsapp, localizacao: evento.urlLocalizacao, inscricao }
   } catch (error) {
     throw error
   }
